@@ -15,6 +15,7 @@ usecase "Vis sete film" as UC9
 usecase "Vis VilSeListe" as UC10
 usecase "Fjern fra VilSeListe" as UC11
 usecase "Vis hovedMenu" as UC12
+usecase "Nulstil adgangskode" as UC13
 
 
 user-->UC1
@@ -41,6 +42,8 @@ UC12-->UC8
 UC6-->UC8
 UC6-->UC6
 UC6-->UC12
+UC2-->UC13
+UC13-->UC2
 
 
 
