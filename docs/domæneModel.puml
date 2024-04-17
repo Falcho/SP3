@@ -36,7 +36,7 @@ Søgefelt --> Medie
 Serie o-- Film
 Serie o-- Sæson
 Sæson *-- Episode
-Episode <|-- Film
+Film <|-- Episode
 
 
 
