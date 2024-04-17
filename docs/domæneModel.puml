@@ -13,6 +13,8 @@ object Startmenu
 object Settings
 object VilSeListe
 object HarSetListe
+object Sæson
+object Episode
 
 
 Medie <|-- Film
@@ -31,6 +33,11 @@ HarSetListe o-- Medie
 Bruger <--> Settings
 Hovedmenu <--> Bruger
 Søgefelt --> Medie
+Serie o-- Film
+Serie o-- Sæson
+Sæson *-- Episode
+Episode <|-- Film
+
 
 
 

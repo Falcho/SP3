@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+!pragma layout smetana
+actor user
+
+usecase "Opret bruger" as UC1
+usecase "Login" as UC2
+usecase "Søg efter titel" as UC3
+usecase "Vis kategori" as UC4
+usecase "Ændre settings" as UC5
+usecase "Afspil film" as UC6
+usecase "Tilføj til VilSeListe" as UC7
+usecase "Afslut Chillflix" as UC8
+usecase "Vis sete film" as UC9
+usecase "Vis VilSeListe" as UC10
+usecase "Fjern fra VilSeListe" as UC11
+usecase "Vis hovedMenu" as UC12
+
+
+user-->UC1
+UC1-->UC2
+user-->UC2
+UC12-->UC3
+UC12-->UC4
+UC12-->UC5
+UC2-->UC12
+UC12-->UC9
+UC12-->UC10
+UC3-->UC6
+UC3-->UC7
+UC3-->UC11
+UC4-->UC6
+UC4-->UC7
+UC4-->UC11
+UC9-->UC6
+UC9-->UC7
+UC10-->UC6
+UC10-->UC11
+UC9-->UC11
+UC12-->UC8
+UC6-->UC8
+UC6-->UC6
+UC6-->UC12
+
+
+
+
+
+
+
+
+
+
+
+
+
+@enduml
