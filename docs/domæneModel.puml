@@ -1,0 +1,50 @@
+@startuml
+!pragma layout smetana
+'https://plantuml.com/object-diagram
+object Medie
+object Film
+object Serie
+object Genre
+object Menu
+object Søgefelt
+object Hovedmenu
+object Bruger
+object Startmenu
+object Settings
+object VilSeListe
+object HarSetListe
+
+
+Medie <|-- Film
+Medie <|-- Serie
+Menu <|-- Hovedmenu
+Menu <|-- Startmenu
+Menu <|-- Settings
+Menu <|-- Søgefelt
+Medie *-- Genre
+Genre o-- Medie
+Hovedmenu o-- Medie
+Bruger *-- HarSetListe
+Bruger *-- VilSeListe
+VilSeListe o-- Medie
+HarSetListe o-- Medie
+Bruger <--> Settings
+Hovedmenu <--> Bruger
+Søgefelt --> Medie
+
+
+
+
+
+
+
+
+
+
+@enduml
+
+
+extends <|-- (is-a)
+composition *-- (must-have)
+Aggregation o-- (can-have)
+Associering <--
