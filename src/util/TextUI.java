@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class TextUI {
 
-    private Scanner scan = new Scanner(System.in);
+    private final Scanner scan = new Scanner(System.in);
 
     public void displayMsg(String msg) {
         System.out.println(msg);
@@ -19,13 +19,13 @@ public class TextUI {
         }
     }
 
-    public void displayMedia(List<Media> mediaList, int start) {
+    /*public void displayMedia(List<Media> mediaList, int start) {
          if (mediaList.size() > start && mediaList.size() <= 10) {
             for (int i = start; i < mediaList.size(); i++) {
                 System.out.println(mediaList.get(i));
             }
         }
-    }
+    }*/
 
     public String promptText(String s) {
         displayMsg(s);
@@ -94,30 +94,7 @@ public class TextUI {
 
 
     /*
-    public void displayList(ArrayList<String> list, String msg){
 
-        System.out.println(msg);
-        for (String option : list) {
-            System.out.println(option);
-        }
-    }
-    public String promptText(String msg){
-        displayMsg(msg);
-        String input = scan.nextLine();
-        return input;
-    }
-    public boolean promptBinary(String msg, String accept, String reject ){
-        boolean output;
-        String input = promptText(msg);
-        if(input.equalsIgnoreCase(accept)){
-            return true;
-        }else if(input.equalsIgnoreCase(reject)){
-            return false;
-        }else{
-            return promptBinary(msg,accept, reject);
-        }
-
-    }
     public int promptNumeric(String msg){
         String input = promptText(msg);         //Give brugere et sted at placere sit svar og vente pÃ¥ svaret
         int number = Integer.parseInt(input);       //Konvertere svaret til et tal
@@ -132,9 +109,4 @@ public class TextUI {
 
     }
 
-    public void displayMsg(String msg){
-        System.out.println("\n***************");
-        System.out.println(msg);
-        System.out.println("***************\n");
-    }
     */
