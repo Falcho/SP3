@@ -33,7 +33,7 @@ Class TextUI{
 +promptChoice();
 +promptNumeric();
 +promptBinary();
-+displayMSG();
++displayMsg();
 +displayList();
 
 }
