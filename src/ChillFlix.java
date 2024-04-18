@@ -1,6 +1,7 @@
 import util.FileIO;
 import util.TextUI;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChillFlix {
     TextUI ui;
@@ -15,6 +16,14 @@ public class ChillFlix {
         io = new FileIO();
         this.userPath = userPath;
         this.mediaPath = mediaPath;
+        this.medialist = new ArrayList<>();
+        this.userlist = new ArrayList<>();
+
+    }
+
+    public void sampleData() {
+        medialist.add(new Serie("Naruto", 2004, "awesome", 9.0f));
+        userlist.add(new User("Mhaa", "ElskerKage"));
     }
 
     public void runDialog() {
