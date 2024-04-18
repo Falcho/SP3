@@ -7,10 +7,15 @@ public class ChillFlix {
     FileIO io;
     String userPath;
     String mediaPath;
-    list<Media> medialist;
-    list<User> userlist;
+    List<Media> medialist;
+    List<User> userlist;
 
-
+    ChillFlix(String userPath, String mediaPath){
+        ui = new TextUI();
+        io = new FileIO();
+        this.userPath = userPath;
+        this.mediaPath = mediaPath;
+    }
 
     public void runDialog() {
         ArrayList<String> list = new ArrayList<>();
@@ -35,13 +40,6 @@ public class ChillFlix {
         }
     }
 
-    ChillFlix(String userPath, String mediaPath){
 
-       ui = new TextUI();
-       io = new FileIO();
-       this.userPath = userPath;
-       this.mediaPath = mediaPath;
-
-    }
 
 }
