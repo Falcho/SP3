@@ -2,17 +2,13 @@
 'https://plantuml.com/class-diagram
 !pragma layout smetana
 
-Class Main{
-+static void main(String[] args);
-}
-
 Class ChillFlix{
 -TextUI ui
 -FileIO io
 -String userPath
 -String mediaPath
 -List<User> userList
--List<Media> mediaList
+-List<IMedia> mediaList
 +ChillFlix(String userPath, String mediaPath);
 +boolean createUser();
 +deleteUser();
@@ -42,8 +38,8 @@ Class TextUI{
 Class User{
 -String userName
 -String userPassword
--List<Media> favorites
--List<Media> history
+-List<IMedia> favorites
+-List<IMedia> history
 +User(String name, String password);
 +userLogin();
 +resetPassword();
@@ -58,7 +54,7 @@ Class User{
 +showSettings();
 }
 
-Interface Media{
+Interface IMedia{
 +play();
 +stop();
 +pause();
@@ -67,41 +63,49 @@ Interface Media{
 +playPrevious();
 +playNext();
 }
-
-Class Film {
+abstract Class Media{
 -String title
 -int releaseYear
 -String genre
--int duration
 -float rating
++getTitle();
++getReleaseYear();
++getGenre();
++getRating();
++setTitle();
++setReleaseYear();
++setGenre();
++setRating();
+}
 
+Class Film {
+-int duration
 }
 
 Class Serie{
 -List<Season> seasonList
 }
 Class Season{
--List<Media> episodeList
+-List<IMedia> episodeList
 }
 
 Class Episode{
 -int episodeNumber
--Media previousEpisode
--Media nextEpisode
+-IMedia previousEpisode
+-IMedia nextEpisode
 }
 
 Film <|-- Episode
-Media <|.. Film
-Media <|.. Serie
-Media <|.. Season
+Media <|-- Film
+Media <|-- Serie
+Media <|-- Season
+IMedia <|.. Media
 ChillFlix *- User
-ChillFlix *-- Media
+ChillFlix *-- IMedia
 ChillFlix *-- FileIO
 ChillFlix *-- TextUI
 Main -- ChillFlix
-User o- Media
-
-
+User o- IMedia
 
 @enduml
 
