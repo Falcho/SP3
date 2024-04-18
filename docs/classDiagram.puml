@@ -32,11 +32,15 @@ Class FileIO{
 
 Class TextUI{
 -Scanner scan
-+promptChoice();
-+promptNumeric();
-+promptBinary();
-+displayMsg();
-+displayList();
++void displayMsg(String msg);
++void displayList(List<String> list);
++void displayMedia(List<Media> mediaList, int start);
++String promptText(String s);
++String promptNumeric(String s, int maxValue);
++boolean promptBinary(String input, String accept, String reject);
++int promptChoice(List<String> inputList, String s);
+
+
 
 }
 }
