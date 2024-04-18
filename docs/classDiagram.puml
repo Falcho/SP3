@@ -20,8 +20,10 @@ Class ChillFlix{
 +search();
 }
 
+package util {
 Class FileIO{
 -Scanner scan
++ArrayList<> scanFile();
 +readUserData();
 +readMediaData();
 +saveUserData();
@@ -37,7 +39,7 @@ Class TextUI{
 +displayList();
 
 }
-
+}
 
 Class User{
 -String userName
