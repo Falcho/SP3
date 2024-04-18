@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -12,6 +13,8 @@ public class User {
     public User(String name,String password){
         this.userName= name;
         this.userPassword = password;
+        this.favorites= new ArrayList<>();
+        this.history= new ArrayList<>();
     }
 
     public void userLogin(){
