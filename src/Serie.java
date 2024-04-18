@@ -1,4 +1,8 @@
 public class Serie extends Media {
+    Serie(String title, int releaseYear, String genre, float rating) {
+        super(title, releaseYear, genre, rating);
+    }
+
     @Override
     public void play() {
         System.out.println("play");
