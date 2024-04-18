@@ -2,13 +2,17 @@
 'https://plantuml.com/class-diagram
 !pragma layout smetana
 
+Class Main{
++static void main(String[] args)
+}
+
 Class ChillFlix{
 -TextUI ui
 -FileIO io
 -String userPath
 -String mediaPath
 -List<User> userList
--List<IMedia> mediaList
+-List<Media> mediaList
 +ChillFlix(String userPath, String mediaPath);
 +boolean createUser();
 +deleteUser();
@@ -38,8 +42,8 @@ Class TextUI{
 Class User{
 -String userName
 -String userPassword
--List<IMedia> favorites
--List<IMedia> history
+-List<Media> favorites
+-List<Media> history
 +User(String name, String password);
 +userLogin();
 +resetPassword();
@@ -91,8 +95,8 @@ Class Season{
 
 Class Episode{
 -int episodeNumber
--IMedia previousEpisode
--IMedia nextEpisode
+-Media previousEpisode
+-Media nextEpisode
 }
 
 Film <|-- Episode
