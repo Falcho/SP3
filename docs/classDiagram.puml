@@ -11,8 +11,8 @@ Class ChillFlix{
 -FileIO io
 -String userPath
 -String mediaPath
--List<User> userList
--List<Media> mediaList
+-HashMap<String, User> userList
+-TreeMap<String, Media> mediaList
 +ChillFlix(String userPath, String mediaPath);
 +boolean createUser();
 +deleteUser();
@@ -20,36 +20,12 @@ Class ChillFlix{
 +search();
 }
 
-package util {
-Class FileIO{
--Scanner scan
-+ArrayList<> scanFile();
-+readUserData();
-+readMediaData();
-+saveUserData();
-+saveMediaData();
-}
-
-Class TextUI{
--Scanner scan
-+void displayMsg(String msg);
-+void displayList(List<String> list);
-+void displayMedia(List<Media> mediaList, int start);
-+String promptText(String s);
-+String promptNumeric(String s, int maxValue);
-+boolean promptBinary(String input, String accept, String reject);
-+int promptChoice(List<String> inputList, String s);
-
-
-
-}
-}
 
 Class User{
 -String userName
 -String userPassword
--List<Media> favorites
--List<Media> history
+-LinkedHashMap<String, Media> favorites
+-LinkedHashMap<String, Media> history
 +User(String name, String password);
 +userLogin();
 +resetPassword();
@@ -62,6 +38,8 @@ Class User{
 +addHistory();
 +resetHistory();
 +showSettings();
++equals()
++hashCode()
 }
 
 Interface IMedia{
@@ -86,6 +64,9 @@ abstract Class Media{
 +setReleaseYear();
 +setGenre();
 +setRating();
++equals()
++hashCode()
++compareTo()
 }
 
 Class Film {
@@ -93,22 +74,41 @@ Class Film {
 }
 
 Class Serie{
--List<Season> seasonList
+-TreeMap<String,List<Media>> episodeMap
 }
-Class Season{
--List<IMedia> episodeList
-}
+
 
 Class Episode{
 -int episodeNumber
 -Media previousEpisode
 -Media nextEpisode
 }
+package util {
+    Class FileIO{
+    -Scanner scan
+    +ArrayList<> scanFile();
+    +readUserData();
+    +readMediaData();
+    +saveUserData();
+    +saveMediaData();
+    }
+
+    Class TextUI{
+    -Scanner scan
+    +void displayMsg(String msg);
+    +void displayList(List<String> list);
+    +void displayMedia(List<Media> mediaList, int start);
+    +String promptText(String s);
+    +String promptNumeric(String s, int maxValue);
+    +boolean promptBinary(String input, String accept, String reject);
+    +int promptChoice(List<String> inputList, String s);
+    }
+}
 
 Film <|-- Episode
 Media <|-- Film
 Media <|-- Serie
-Media <|-- Season
+Serie o-- Episode
 IMedia <|.. Media
 ChillFlix *- User
 ChillFlix *-- IMedia
