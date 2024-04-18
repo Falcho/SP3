@@ -7,7 +7,37 @@ public class TextUI {
 
     private Scanner scan = new Scanner(System.in);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     public void displayList(ArrayList<String> list, String msg){
+
         System.out.println(msg);
         for (String option : list) {
             System.out.println(option);
@@ -20,9 +50,6 @@ public class TextUI {
     }
     public boolean promptBinary(String msg, String accept, String reject ){
         boolean output;
-        // todo: check at der tastes enten y eller n
-        // lav rekursivt kald hvis det er noget tredje
-
         String input = promptText(msg);
         if(input.equalsIgnoreCase(accept)){
             return true;
@@ -52,5 +79,5 @@ public class TextUI {
         System.out.println(msg);
         System.out.println("***************\n");
     }
-
+    */
 }
