@@ -2,9 +2,110 @@
 'https://plantuml.com/class-diagram
 !pragma layout smetana
 
+Class Main{
++static void main(String[] args);
+}
+
+Class ChillFlix{
+-TextUI ui
+-FileIO io
+-String userPath
+-String mediaPath
+-List<User> userList
+-List<Media> mediaList
++ChillFlix(String userPath, String mediaPath);
++boolean createUser();
++deleteUser();
++checkIfUserExists();
++search();
+}
+
+Class FileIO{
+-Scanner scan
++readUserData();
++readMediaData();
++saveUserData();
++saveMediaData();
+}
+
+Class TextUI{
+-Scanner scan
++promptChoice();
++promptNumeric();
++promptBinary();
++displayMSG();
++displayList();
+
+}
+
+
+Class User{
+-String userName
+-String userPassword
+-List<Media> favorites
+-List<Media> history
++User(String name, String password);
++userLogin();
++resetPassword();
++changePassword();
++changeUserName();
++displayFavorites();
++displayHistory();
++addFavorite();
++removeFavorite();
++addHistory();
++resetHistory();
++showSettings();
+}
+
+Interface Media{
++play();
++stop();
++pause();
++restart();
++skipIntro();
++playPrevious();
++playNext();
+}
+
+Class Film {
+-String title
+-int releaseYear
+-String genre
+-int duration
+-float rating
+
+}
+
+Class Serie{
+-List<Season> seasonList
+}
+Class Season{
+-List<Media> episodeList
+}
+
+Class Episode{
+-int episodeNumber
+-Media previousEpisode
+-Media nextEpisode
+}
+
+Film <|-- Episode
+Media <|.. Film
+Media <|.. Serie
+Media <|.. Season
+ChillFlix *- User
+ChillFlix *-- Media
+ChillFlix *-- FileIO
+ChillFlix *-- TextUI
+Main -- ChillFlix
+User o- Media
+
+
 
 @enduml
 
+implements ..|>
 extends <|-- (is-a)
 composition *-- (must-have)
 Aggregation o-- (can-have)
