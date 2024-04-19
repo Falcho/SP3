@@ -3,11 +3,10 @@
 !pragma layout smetana
 actor user
 
-usecase "Opret bruger" as UC1
+usecase "Opret bruger" as OPRET
 usecase "Login" as UC2
 usecase "Søg efter titel" as UC3
 usecase "Vis kategori" as UC4
-usecase "Ændre settings" as UC5
 usecase "Afspil film" as UC6
 usecase "Tilføj til VilSeListe" as UC7
 usecase "Afslut Chillflix" as UC8
@@ -16,35 +15,33 @@ usecase "Vis VilSeListe" as UC10
 usecase "Fjern fra VilSeListe" as UC11
 usecase "Vis hovedMenu" as UC12
 usecase "Nulstil adgangskode" as UC13
+usecase "Vælg film" as UC14
+usecase "Ændre settings" as SETTINGS
 
 
-user-->UC1
-UC1-->UC2
+user-->OPRET
+OPRET-->UC2
 user-->UC2
+UC2-->UC12
+UC2-->UC13
+UC3-->UC14
+UC4-->UC14
+UC6-->UC6
+UC6-->UC8
+UC6-->UC12
+UC9-->UC14
+UC9-->UC11
+UC10-->UC14
 UC12-->UC3
 UC12-->UC4
-UC12-->UC5
-UC2-->UC12
+UC12-->SETTINGS
+UC12-->UC8
 UC12-->UC9
 UC12-->UC10
-UC3-->UC6
-UC3-->UC7
-UC3-->UC11
-UC4-->UC6
-UC4-->UC7
-UC4-->UC11
-UC9-->UC6
-UC9-->UC7
-UC10-->UC6
-UC10-->UC11
-UC9-->UC11
-UC12-->UC8
-UC6-->UC8
-UC6-->UC6
-UC6-->UC12
-UC2-->UC13
 UC13-->UC2
-
+UC14-->UC6
+UC14-->UC7
+UC14-->UC11
 
 
 
