@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class User {
 
@@ -14,8 +13,8 @@ public class User {
     public User(String name,String password){
         this.userName= name;
         this.userPassword = password;
-        this.favorites= new ArrayList<>();
-        this.history= new ArrayList<>();
+        this.favorites= new LinkedHashMap<String, Media>();
+        this.history= new LinkedHashMap<String, Media>();
     }
 
     public void userLogin(){
