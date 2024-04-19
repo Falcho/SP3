@@ -38,6 +38,7 @@ public class ChillFlix {
             switch (choice) {
                 case 1:
                     ui.displayMsg("Opret bruger");
+
                     break;
                 case 2:
                     ui.displayMsg("Login");
@@ -48,6 +49,8 @@ public class ChillFlix {
             }
         }
     }
+
+
 
 
 
