@@ -1,29 +1,30 @@
 import util.FileIO;
 import util.TextUI;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class ChillFlix {
     TextUI ui;
     FileIO io;
     String userPath;
     String mediaPath;
-    List<Media> medialist;
-    List<User> userlist;
+    Map<String, Media> mediaList;
+    Map<String, User> userList;
 
     ChillFlix(String userPath, String mediaPath){
         ui = new TextUI();
         io = new FileIO();
         this.userPath = userPath;
         this.mediaPath = mediaPath;
-        this.medialist = new ArrayList<>();
-        this.userlist = new ArrayList<>();
+        this.mediaList = new HashMap<>();
+        this.userList = new TreeMap<>();
 
     }
 
     public void sampleData() {
-        medialist.add(new Serie("Naruto", 2004, "awesome", 9.0f));
-        userlist.add(new User("Mhaa", "ElskerKage"));
+        mediaList.put("Naruto", new Serie("Naruto", 2004, "awesome", 9.0f));
+        userList.put("Mhaa", new User("Mhaa","ElskerKage"));
+
     }
 
     public boolean createUser(){
@@ -91,6 +92,16 @@ public class ChillFlix {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChillFlix chillFlix = (ChillFlix) o;
+        return Objects.equals(ui, chillFlix.ui) && Objects.equals(io, chillFlix.io) && Objects.equals(userPath, chillFlix.userPath) && Objects.equals(mediaPath, chillFlix.mediaPath) && Objects.equals(mediaList, chillFlix.mediaList) && Objects.equals(userList, chillFlix.userList);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(ui, io, userPath, mediaPath, mediaList, userList);
+    }
 }

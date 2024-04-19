@@ -1,20 +1,20 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class User {
 
 
     private String userName;
     private String userPassword;
-    private List<Media> favorites;
-    private List<Media> history;
+    private Map<String, Media> favorites;
+    private Map<String, Media> history;
+
 
 
     public User(String name,String password){
         this.userName= name;
         this.userPassword = password;
-        this.favorites= new ArrayList<>();
-        this.history= new ArrayList<>();
+        this.favorites= new LinkedHashMap<String, Media>();
+        this.history= new LinkedHashMap<String, Media>();
     }
 
     public void userLogin(){
@@ -57,5 +57,15 @@ public class User {
         System.out.println("showSettings()");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return Objects.equals(userName, user.userName) && Objects.equals(userPassword, user.userPassword) && Objects.equals(favorites, user.favorites) && Objects.equals(history, user.history);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName, userPassword, favorites, history);
+    }
 }
