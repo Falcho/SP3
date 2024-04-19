@@ -22,8 +22,9 @@ public class ChillFlix {
     }
 
     public void sampleData() {
-        medialist.add(new Serie("Naruto", 2004, "awesome", 9.0f));
-        userlist.add(new User("Mhaa", "ElskerKage"));
+        mediaList.put("Naruto", new Serie("Naruto", 2004, "awesome", 9.0f));
+        userList.put("Mhaa", new User("Mhaa","ElskerKage"));
+
     }
 
     public void runDialog() {
