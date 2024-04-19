@@ -80,9 +80,9 @@ public class ChillFlix {
 
     public void runDialog() {
         ArrayList<String> list = new ArrayList<>();
-        list.add("Opret bruger");
-        list.add("Login");
-        list.add("Luk Chillflix");
+        list.add("1. Opret bruger");
+        list.add("2. Login");
+        list.add("3. Luk Chillflix");
         ui.displayMsg("Login menu");
         boolean proceed = true;
         while (proceed) {
@@ -90,9 +90,11 @@ public class ChillFlix {
             switch (choice) {
                 case 1:
                     ui.displayMsg("Opret bruger");
+                    this.createUser();
                     break;
                 case 2:
                     ui.displayMsg("Login");
+                    this.loginDialog();
                     break;
                 case 3:
                     proceed = false;
