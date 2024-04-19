@@ -1,9 +1,8 @@
 package util;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import javax.print.attribute.standard.Media;
+import java.util.*;
 
 public class TextUI {
 
@@ -19,13 +18,11 @@ public class TextUI {
         }
     }
 
-    /*public void displayMedia(List<Media> mediaList, int start) {
-         if (mediaList.size() > start && mediaList.size() <= 10) {
-            for (int i = start; i < mediaList.size(); i++) {
-                System.out.println(mediaList.get(i));
-            }
+    public void displayMedia(Map<String, Media> mediaList, int start) {
+        for (String s : mediaList.keySet()) {
+            System.out.println(s);
         }
-    }*/
+    }
 
     public String promptText(String s) {
         displayMsg(s);
@@ -63,7 +60,18 @@ public class TextUI {
         return input;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TextUI textUI = (TextUI) o;
+        return Objects.equals(scan, textUI.scan);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(scan);
+    }
 }
 
 
