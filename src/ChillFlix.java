@@ -61,8 +61,6 @@ public class ChillFlix {
         if (!userList.containsKey(username) || !userList.get(username).getPassword().equals(password)) {
             ui.displayMsg("brugernavn/kodeord kombination eksisterer ikke");
             return loginDialog();
-        } else  {
-            return true;
         }
         return true;
     }

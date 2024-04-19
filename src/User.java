@@ -68,4 +68,8 @@ public class User {
     public int hashCode() {
         return Objects.hash(userName, userPassword, favorites, history);
     }
+
+    public String getPassword() {
+        return userPassword;
+    }
 }
