@@ -6,7 +6,7 @@ import java.util.*;
 
 public class TextUI {
 
-    private final Scanner scan = new Scanner(System.in);
+    private Scanner scan = new Scanner(System.in);
 
     public void displayMsg(String msg) {
         System.out.println(msg);
@@ -33,7 +33,7 @@ public class TextUI {
     public int promptNumeric(String s, int maxValue) {
         displayMsg(s);
         if (scan.hasNextInt()) {
-            String input = scan.next();
+            String input = scan.nextLine();
             int parsedInt = Integer.parseInt(input);
             if (parsedInt > 0 && parsedInt <= maxValue) {
                 return parsedInt;
