@@ -57,6 +57,7 @@ public class ChillFlix {
 
     public boolean loginDialog() {
         String username = ui.promptText("Indtast brugernavn");
+        ui.displayMsg("Du har indtastet et brugernavn.");
         String password = ui.promptText("Indtast kodeord");
         if (!userList.containsKey(username) || !userList.get(username).getPassword().equals(password)) {
             ui.displayMsg("brugernavn/kodeord kombination eksisterer ikke");
