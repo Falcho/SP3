@@ -23,10 +23,10 @@ public class ChillFlix {
 
     public void sampleData() {
         mediaList.put("Naruto", new Serie("Naruto", 2004, "awesome", 9.0f));
-        mediaList.put("ChainSawMan", new Serie("ChainSawMan", 2009, "Splatter", 8));
-        mediaList.put("OnePunchMan", new Serie("OnePunchMan", 2004, "Næver", 9));
-        mediaList.put("SwordArtOnline", new Serie("SwordArtOnline", 2006, "Sværd", 7));
-        mediaList.put("TheDeadlySevenSins", new Serie("TheDeadlySevenSins", 2003, "Dæmoner", 7));
+        mediaList.put("Chain Saw Man", new Serie("Chain Saw Man", 2009, "Splatter", 8));
+        mediaList.put("One Punch Man", new Serie("One Punch Man", 2004, "Næver", 9));
+        mediaList.put("SwordArt Online", new Serie("SwordArt Online", 2006, "Sværd", 7));
+        mediaList.put("The Deadly Seven Sins", new Serie("The Deadly Seven Sins", 2003, "Dæmoner", 7));
         userList.put("Mhaa", new User("Mhaa","ElskerKage"));
         userList.put("AndyTheDragon", new User("AndyTheDragon","CodeGenius123"));
         userList.put("Francky",new User("Francky","123BabyDaddy"));
