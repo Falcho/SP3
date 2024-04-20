@@ -16,8 +16,8 @@ public class ChillFlix {
         io = new FileIO();
         this.userPath = userPath;
         this.mediaPath = mediaPath;
-        this.mediaList = new HashMap<>();
-        this.userList = new TreeMap<>();
+        this.mediaList = new TreeMap<>();
+        this.userList = new HashMap<>();
 
     }
 
