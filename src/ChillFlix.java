@@ -45,7 +45,7 @@ public class ChillFlix {
         }
     }
 
-    public void MainDialog() {
+    public void mainDialog() {
         ArrayList<String> list = new ArrayList<>();
         list.add("1. Vis katagori");
         list.add("2. Vis farvoritliste");
@@ -80,6 +80,9 @@ public class ChillFlix {
                 case 6:
                     proceed = false;
                     break;
+            }
+        }
+    }
 
     public boolean loginDialog() {
         String username = ui.promptText("Indtast brugernavn");
@@ -120,9 +123,6 @@ public class ChillFlix {
         }
     }
 
-            }
-        }
-    }
 
     public void runDialog() {
         ArrayList<String> list = new ArrayList<>();
