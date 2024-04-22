@@ -21,7 +21,7 @@ public class ChillFlix {
         this.mediaPath = mediaPath;
         this.mediaList = new TreeMap<>();
         this.userList = new HashMap<>();
-        this.sampleData();
+        //this.sampleData();
         this.parseMovieData();
 
     }
@@ -51,9 +51,9 @@ public class ChillFlix {
     }
     public void startDialog() {
         ArrayList<String> actions = new ArrayList<>();
-        actions.add("1. Login");
-        actions.add("2. Opret bruger");
-        actions.add("3. Luk");
+        actions.add("Login");
+        actions.add("Opret bruger");
+        actions.add("Luk");
         boolean loggedln = false;
         while (!loggedln) {
             int choice = ui.promptChoice(actions, "Vælg en handling");
@@ -80,11 +80,11 @@ public class ChillFlix {
     }
     public void mainDialog() {
         ArrayList<String> list = new ArrayList<>();
-        list.add("1. Vis katagori");
-        list.add("2. Vis farvoritliste");
-        list.add("3. Vis historik");
-        list.add("4. Søg efter titel");
-        list.add("5. Settings");
+        list.add("Vis katagori");
+        list.add("Vis farvoritliste");
+        list.add("Vis historik");
+        list.add("Søg efter titel");
+        list.add("Settings");
         ui.displayMsg("Hovedmenu");
         boolean proceed = true;
         while (proceed) {

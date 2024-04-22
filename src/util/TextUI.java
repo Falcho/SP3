@@ -13,8 +13,9 @@ public class TextUI {
     }
 
     public void displayList(List<String> list) {
+        int n=1;
         for (String s : list) {
-            System.out.println(s);
+            System.out.println(n++ + ") " + s);
         }
     }
 
