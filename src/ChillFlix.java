@@ -7,27 +7,29 @@ import static java.lang.System.exit;
 
 public class ChillFlix {
     TextUI ui;
-    FileIO io;
-    String userPath;
-    String mediaPath;
+    private FileIO io;
+    private String userPath;
+    private String moviePath;
+    private String seriePath;
     Map<String, Media> mediaList;
     Map<String, User> userList;
     Map<String, Map<String,Media>> genreMap;
     User currentUser;
 
 
-
-    ChillFlix(String userPath, String mediaPath) {
+    ChillFlix(String userPath, String moviePath, String seriePath) {
         ui = new TextUI();
         io = new FileIO();
         this.userPath = userPath;
-        this.mediaPath = mediaPath;
+        this.moviePath = moviePath;
+        this.seriePath = seriePath;
         this.mediaList = new TreeMap<>();
         this.userList = new HashMap<>();
         this.genreMap = new TreeMap<>();
         //this.sampleData();
         this.parseMovieData();
         this.parseUserData();
+        this.parseSerieData();
     }
 
     public void sampleData() {
@@ -196,23 +198,19 @@ public class ChillFlix {
 
 
     }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ChillFlix chillFlix = (ChillFlix) o;
-        return Objects.equals(ui, chillFlix.ui) && Objects.equals(io, chillFlix.io) && Objects.equals(userPath, chillFlix.userPath) && Objects.equals(mediaPath, chillFlix.mediaPath) && Objects.equals(mediaList, chillFlix.mediaList) && Objects.equals(userList, chillFlix.userList);
+    public void parseSerieData(){
+        ArrayList<String>serieList= io.readData(seriePath);
+        for(String title:serieList){
+            Serie serie=createSerieFromString(title);
+            mediaList.put(serie.getTitle(),serie);
+            addGenre(serie);
+        }
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(ui, io, userPath, mediaPath, mediaList, userList);
-    }
+
 
     public void parseMovieData(){
-      ArrayList<String>movieList= io.readData(mediaPath);
+      ArrayList<String>movieList= io.readData(moviePath);
       for(String title:movieList){
           Movie movie=createMovieFromString(title);
           mediaList.put(movie.getTitle(),movie);
@@ -221,7 +219,6 @@ public class ChillFlix {
     }
 
     public void addGenre(Media movie){
-
         ArrayList<String> genreList = new ArrayList<>(List.of(movie.getGenre().split(",")));
         for(String genre: genreList){
             if(!genreMap.containsKey(genre.trim())){
@@ -232,9 +229,32 @@ public class ChillFlix {
         }
 
     }
+    public Serie createSerieFromString(String serieString) {
+        String[] serieData=serieString.split(";");
+        String title= serieData[0].trim();
+        String years = serieData[1].trim(); //1991-1992
+        int startYear= Integer.parseInt(years.split("-")[0]);
+        //int endYear= Integer.parseInt(years.split("-")[1]);
 
+        String genre= serieData[2].trim();
+        float rating = Float.parseFloat(serieData[3].replace(",",".").trim());
+        String seasonEpisodeString = serieData[4].trim();
+        String[] seasonEpisodeList = seasonEpisodeString.split(",");
+        Serie serie = new Serie(title,startYear,genre,rating);
+
+        for (String seasonEpisode : seasonEpisodeList) {
+            int seasonNumber = Integer.parseInt(seasonEpisode.split("-")[0].trim());
+            int episodesInSeason = Integer.parseInt(seasonEpisode.split("-")[1].trim());
+            serie.getSeasonMap().put(title + " sæson " + seasonNumber,new TreeMap<String, Media>());
+            for (int i=1; i<=episodesInSeason; i++){
+                Episode ep = new Episode(title + "S" + seasonNumber + "E" + i,startYear,genre,rating,0);
+                serie.getSeasonMap().get(title + " sæson " + seasonNumber).put(ep.getTitle(), ep);
+            }
+        }
+        return serie;
+    }
     public Movie createMovieFromString(String movieString) {
-       String[] movieData=movieString.split(";");
+        String[] movieData=movieString.split(";");
         String title= movieData[0].trim();
         int releaseYear= Integer.parseInt(movieData[1].trim());
         String genre= movieData[2].trim();
@@ -252,4 +272,17 @@ public class ChillFlix {
             //selectMovieDialog(resultList);
         }
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChillFlix chillFlix = (ChillFlix) o;
+        return Objects.equals(ui, chillFlix.ui) && Objects.equals(io, chillFlix.io) && Objects.equals(userPath, chillFlix.userPath) && Objects.equals(moviePath, chillFlix.moviePath) && Objects.equals(mediaList, chillFlix.mediaList) && Objects.equals(userList, chillFlix.userList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ui, io, userPath, moviePath, mediaList, userList);
+    }
+
 }
