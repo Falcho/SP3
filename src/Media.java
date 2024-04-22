@@ -44,6 +44,6 @@ abstract public class Media implements IMedia{
     }
 
     public void display() {
-        this.mediaDialog();
+        //this.mediaDialog();
     }
 }
