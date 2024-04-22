@@ -26,11 +26,11 @@ public class FileIO {
         return dataList;
     }
 
-    public static void saveData(String header,ArrayList<String> dataList, String path) {
+    public static void saveData(String header,ArrayList<Object> dataList, String path) {
         try {
             FileWriter writer = new FileWriter(path);
-            writer.write("Motor, Make, Model, Registration number, Km/l, Max range, battery capacity, Has particle filter, Number of doors"+"\n"); //Giv csv filen en header
-            for (String item : dataList) {
+            writer.write(header+"\n");
+            for (Object item : dataList) {
                 writer.write(item + "\n");
             }
             writer.close();

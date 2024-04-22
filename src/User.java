@@ -72,4 +72,9 @@ public class User {
     public String getPassword() {
         return userPassword;
     }
+
+    @Override
+    public String toString() {
+        return  userName + '\t' + userPassword + '\t'  + favorites + '\t'  + history ;
+    }
 }
