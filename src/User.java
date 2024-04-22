@@ -42,10 +42,6 @@ public class User {
         System.out.println("addFavorite()");
     }
 
-    public void removeFavorite(Media media){
-        System.out.println("removeFavorite()");
-    }
-
     public void addHistory(Media media){
         System.out.println("addHistory()");
     }
@@ -85,7 +81,7 @@ public class User {
         return  userName + '\t' + userPassword + '\t'  + favorites + '\t'  + history ;
     }
 
-    public void removeFavorites(Media media){
+    public void removeFavorite(Media media){
         favorites.remove(media);
     }
 
