@@ -38,7 +38,7 @@ public class User {
         System.out.println("displayHistory()");
     }
 
-    public void addFavorite(){
+    public void addFavorite(Media media){
         System.out.println("addFavorite()");
     }
 
@@ -46,7 +46,7 @@ public class User {
         System.out.println("removeFavorite()");
     }
 
-    public void addHistory(){
+    public void addHistory(Media media){
         System.out.println("addHistory()");
     }
     public void resetHistory(){

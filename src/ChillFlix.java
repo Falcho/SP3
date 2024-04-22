@@ -18,7 +18,7 @@ public class ChillFlix {
         this.mediaPath = mediaPath;
         this.mediaList = new TreeMap<>();
         this.userList = new HashMap<>();
-
+        parseUserData();
     }
 
     public void sampleData() {
@@ -103,6 +103,37 @@ public class ChillFlix {
             }
         }
     }
+
+    public void parseUserData(){
+        List<String> userDataList = io.readData(userPath);
+        for(String userData : userDataList){
+            String[] userDataArray = userData.split("\t");
+            String userName = userDataArray[0].trim();
+            String userPassword = userDataArray[1].trim();
+            User user = new User(userName, userPassword);
+            for(String movieTitle : userDataArray[2].split(";")){
+                user.addFavorite(mediaList.get(movieTitle.trim()));
+            }
+            for(String movieTitle : userDataArray[3].split(";")){
+                user.addHistory(mediaList.get(movieTitle.trim()));
+            }
+            userList.put(userName,user);
+        }
+
+
+    }
+
+//    ChillFLix constructoren skal kalde denne metode.
+//    Denne metode skal kalde io.readData og gemme resultatet i en liste
+//    Hver linje i listen skal laves om til et User object.
+//    Dette gøres ved at bruge split("\t") til at dele strengen op på tabulator tegnet.
+//    [0] indeholder brugerens navn
+//    [1] indeholder kodeordet
+//    [2] indeholder en semikolonsepareret liste af favoritter.
+//    [3] indeholder en semikolonsepareret liste af historik.
+//    De to lister skal konverteres til Map<String,Media>
+//
+//    Opdater klassediagrammet
 
     @Override
     public boolean equals(Object o) {
