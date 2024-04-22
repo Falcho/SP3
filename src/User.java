@@ -38,11 +38,11 @@ public class User {
         System.out.println("displayHistory()");
     }
 
-    public void addFavorite(){
+    public void addFavorite(Media media){
         System.out.println("addFavorite()");
     }
 
-    public void removeFavorite(){
+    public void removeFavorite(Media media){
         System.out.println("removeFavorite()");
     }
 

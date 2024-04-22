@@ -58,7 +58,7 @@ abstract public class Media implements IMedia{
         //this.mediaDialog();
     }
 
-    public void mediaDialog() {
+    public void mediaDialog(User currentUser) {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("Afspil Film");
         actions.add("Tilføj til favoritter");
@@ -66,17 +66,17 @@ abstract public class Media implements IMedia{
         actions.add("Tilbage");
 
         int choice = 0;
-        while (choice > 3) {
+        while (choice < 3) {
             choice = ui.promptChoice(actions, "");
             switch (choice) {
                 case 1:
                     this.play();
                     break;
                 case 2:
-                    currentUser.addToFavorites();
+                    currentUser.addFavorite(this);
                     break;
                 case 3:
-                    currentUser.removeFromFavorites();
+                    currentUser.removeFavorite(this);
                     break;
 
             }
