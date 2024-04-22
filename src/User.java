@@ -1,3 +1,5 @@
+import util.TextUI;
+
 import java.util.*;
 
 public class User {
@@ -8,7 +10,7 @@ public class User {
     private Map<String, Media> favorites;
     private Map<String, Media> history;
 
-
+TextUI ui= new TextUI();
 
     public User(String name,String password){
         this.userName= name;
@@ -16,6 +18,11 @@ public class User {
         this.favorites= new LinkedHashMap<String, Media>();
         this.history= new LinkedHashMap<String, Media>();
     }
+
+public void addToFavorits(Media media){
+    favorites.put(media.getTitle(), media);
+    ui.displayMsg(media.getTitle() +"tilføjet til dine favoriter");
+}
 
     public boolean checkPassword(String pwd){
         return this.getPassword().equals(pwd);
