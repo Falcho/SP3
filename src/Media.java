@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 abstract public class Media implements IMedia{
     private String title;
     private int releaseYear;
@@ -42,4 +44,13 @@ abstract public class Media implements IMedia{
     public void setRating(float rating) {
         this.rating = rating;
     }
+
+    @Override
+    public String toString() {
+        return"title='" + title + '\'';
+    }
 }
+
+
+
+
