@@ -160,7 +160,7 @@ public class ChillFlix {
     public void selectMovieDialog(Map<String, Media>mediaMap){
         List<String> titleList = new ArrayList(mediaMap.keySet());
         int choice = ui.promptChoice(titleList,"Vælg en film fra listen");
-        mediaMap.get(titleList.get(choice)).display();
+        mediaMap.get(titleList.get(choice)).mediaDialog(currentUser);
     }
 
     @Override
