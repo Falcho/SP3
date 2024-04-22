@@ -17,9 +17,6 @@ public class User {
         this.history= new LinkedHashMap<String, Media>();
     }
 
-    public void userLogin(){
-        System.out.println("userLogin()");
-    }
     public boolean checkPassword(String pwd){
         return this.getPassword().equals(pwd);
     }

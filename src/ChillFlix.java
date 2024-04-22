@@ -36,110 +36,91 @@ public class ChillFlix {
 
     }
 
-    public boolean createUser() {
-        String usernameInput = ui.promptText("Indtast nyt brugernavn");
-        if (userList.containsKey(usernameInput)) {
-            ui.displayMsg("Brugernavn er allerede taget");
-            return createUser();
+    public boolean checkIfUserExists(String username, String msg) {
+        if (userList.containsKey(username)) {
+            ui.displayMsg(msg);
+            return true;
         } else {
-            String passwordInput = ui.promptText("Indtast kodeord");
-            String repeatPasswordInput = ui.promptText("Gentag kodeord");
-
-            if (!passwordInput.equals(repeatPasswordInput)) {
-                ui.displayMsg("Kodeord ikke ens - prøv igen");
-                //toDo skal refactors til at bruge resetPassword()
-            } else {
-                User user = new User(usernameInput, passwordInput);
-                userList.put(usernameInput, user);
-            }
+            return false;
         }
-        return loginDialog();
     }
 
 
     public boolean loginDialog() {
         String username = ui.promptText("Indtast brugernavn");
-        //ui.displayMsg("Du har indtastet et brugernavn.");
         String password = ui.promptText("Indtast kodeord");
-        if (!checkIfUserExists(username, password)) {
+        if (!checkIfUserExists(username, "") || !userList.get(username).checkPassword(password)) {
             ui.displayMsg("brugernavn/kodeord kombination eksisterer ikke");
             return false;
-        } else if (checkIfUserExists(username, password)) {
-            userList.get(username).checkPassword(password);
-            if (!userList.get(username).checkPassword(password)) {
-                ui.displayMsg("brugernavn/kodeord kombination eksisterer ikke");
-                return false;
-            } else {
-                currentUser = userList.get(username);
-                //return true;
+        }
+        this.currentUser = userList.get(username);
+        return true;
+    }
+
+
+
+
+    public boolean createUserDialog(String username) {
+        String usernameInput;
+        if (username!=null) {
+            usernameInput = ui.promptText("Indtast brugernavn. Dette må ikke være tomt");
+            if (usernameInput.equalsIgnoreCase("") || checkIfUserExists(usernameInput, "Brugernavnet er enten taget, eller tomt - prøv igen.")) {
+                return createUserDialog(null);
             }
         }
-        return true;
-    }
-
-
-public boolean checkIfUserExists(String username, String msg) {
-    if (userList.containsKey(username)) {
-        ui.displayMsg(msg);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-public boolean createUserDialog(String username) {
-    String usernameInput = ui.promptText("Indtast brugernavn. Dette må ikke være tomt");
-    if (usernameInput.equalsIgnoreCase("") || usernameInput.equals(null) || userList.containsKey(usernameInput)) {
-        checkIfUserExists(usernameInput, "Brugernavnet er enten taget, eller tomt - prøv igen.");
-        createUserDialog(username);
-    } else {
+        else {
+            usernameInput = username;
+        }
         String passwordInput = ui.promptText("Indtast kodeord");
         String repeatPasswordInput = ui.promptText("Gentag kodeord");
         if (!passwordInput.equals(repeatPasswordInput)) {
-            createUserDialog(username);
+            return createUserDialog(usernameInput);
         } else {
             User user = new User(usernameInput, passwordInput);
             userList.put(usernameInput, user);
-            io.saveData("header", new ArrayList(userList.values()), data / user.csv);
+            io.saveData("username\tpassword\t[favorites]\t[history]", new ArrayList<Object>(userList.values()), userPath);
+            ui.displayMsg("Bruger oprettet.");
             return true;
-        }
 
-
-        public void runDialog () {
-            ArrayList<String> list = new ArrayList<>();
-            list.add("1. Opret bruger");
-            list.add("2. Login");
-            list.add("3. Luk Chillflix");
-            ui.displayMsg("Login menu");
-            boolean proceed = true;
-            while (proceed) {
-                int choice = ui.promptChoice(list, "Vælg en handling");
-                switch (choice) {
-                    case 1:
-                        ui.displayMsg("Opret bruger");
-                        this.createUser();
-                        break;
-                    case 2:
-                        ui.displayMsg("Login");
-                        this.loginDialog();
-                        break;
-                    case 3:
-                        proceed = false;
-                        break;
-                }
-            }
-        }
-
-        @Override
-        public boolean equals (Object o){
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            ChillFlix chillFlix = (ChillFlix) o;
-            return Objects.equals(ui, chillFlix.ui) && Objects.equals(io, chillFlix.io) && Objects.equals(userPath, chillFlix.userPath) && Objects.equals(mediaPath, chillFlix.mediaPath) && Objects.equals(mediaList, chillFlix.mediaList) && Objects.equals(userList, chillFlix.userList);
-        }
-
-        @Override
-        public int hashCode () {
-            return Objects.hash(ui, io, userPath, mediaPath, mediaList, userList);
         }
     }
+
+
+    public void runDialog() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("1. Opret bruger");
+        list.add("2. Login");
+        list.add("3. Luk Chillflix");
+        ui.displayMsg("Login menu");
+        boolean proceed = true;
+        while (proceed) {
+            int choice = ui.promptChoice(list, "Vælg en handling");
+            switch (choice) {
+                case 1:
+                    ui.displayMsg("Opret bruger");
+                    this.createUserDialog(null);
+                    break;
+                case 2:
+                    ui.displayMsg("Login");
+                    this.loginDialog();
+                    break;
+                case 3:
+                    proceed = false;
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChillFlix chillFlix = (ChillFlix) o;
+        return Objects.equals(ui, chillFlix.ui) && Objects.equals(io, chillFlix.io) && Objects.equals(userPath, chillFlix.userPath) && Objects.equals(mediaPath, chillFlix.mediaPath) && Objects.equals(mediaList, chillFlix.mediaList) && Objects.equals(userList, chillFlix.userList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ui, io, userPath, mediaPath, mediaList, userList);
+    }
+}
