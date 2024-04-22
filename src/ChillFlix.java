@@ -12,7 +12,10 @@ public class ChillFlix {
     String mediaPath;
     Map<String, Media> mediaList;
     Map<String, User> userList;
+    Map<String, Map<String,Media>> genreMap;
     User currentUser;
+
+
 
     ChillFlix(String userPath, String mediaPath) {
         ui = new TextUI();
@@ -23,7 +26,7 @@ public class ChillFlix {
         this.userList = new HashMap<>();
         //this.sampleData();
         this.parseMovieData();
-
+        this.genreMap = new TreeMap<>();
         parseUserData();
     }
 
@@ -206,7 +209,19 @@ public class ChillFlix {
       for(String title:movieList){
           Movie movie=createMovieFromString(title);
           mediaList.put(movie.getTitle(),movie);
+          addGenre(movie);
       }
+    }
+
+    public void addGenre(Media movie){
+
+        ArrayList<String> genreList = new ArrayList<>(List.of(movie.getGenre().split(",")));
+        for(String genre: genreList){
+            if(!genreMap.containsKey(genre.trim())){
+                genreMap.put(genre.trim(),new TreeMap<String,Media>());
+            }
+            genreMap.get(genre.trim()).put(movie.getTitle(),movie);
+        }
 
     }
 
