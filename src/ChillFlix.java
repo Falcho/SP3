@@ -3,6 +3,8 @@ import util.TextUI;
 
 import java.util.*;
 
+import static java.lang.System.exit;
+
 public class ChillFlix {
     TextUI ui;
     FileIO io;
@@ -45,10 +47,7 @@ public class ChillFlix {
         }
 
     }
-
-    public void mainDialog() {
-
-    public void StartDialog() {
+    public void startDialog() {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("1. Login");
         actions.add("2. Opret bruger");
@@ -59,31 +58,25 @@ public class ChillFlix {
             switch (choice) {
                 case 1:
                     ui.displayMsg("Login ind");
-                    //loggedln=loginDialog();
+                    loggedln=loginDialog();
                     break;
                 case 2:
                     ui.displayMsg("Create user");
-                    //createUserDialog(null);
+                    createUserDialog(null);
                     break;
                 case 3:
                     ui.displayMsg("Quit");
-                    //exit(0);
+                    exit(0);
                     break;
                 case 4:
                     loggedln = false;
                     break;
 
             }
-            //if(loggedln) this.mainDialog();
+            if(loggedln) this.mainDialog();
         }
     }
-
-
-
-
-
-
-    public void MainDialog() {
+    public void mainDialog() {
         ArrayList<String> list = new ArrayList<>();
         list.add("1. Vis katagori");
         list.add("2. Vis farvoritliste");
@@ -162,30 +155,6 @@ public class ChillFlix {
     }
 
 
-    public void runDialog() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("1. Opret bruger");
-        list.add("2. Login");
-        list.add("3. Luk Chillflix");
-        ui.displayMsg("Login menu");
-        boolean proceed = true;
-        while (proceed) {
-            int choice = ui.promptChoice(list, "Vælg en handling");
-            switch (choice) {
-                case 1:
-                    ui.displayMsg("Opret bruger");
-                    this.createUser();
-                    break;
-                case 2:
-                    ui.displayMsg("Login");
-                    this.loginDialog();
-                    break;
-                case 3:
-                    proceed = false;
-                    break;
-            }
-        }
-    }
     public void selectMovieDialog(Map<String, Media>mediaMap){
         List<String> titleList = new ArrayList(mediaMap.keySet());
         int choice = ui.promptChoice(titleList,"Vælg en title fra listen");
