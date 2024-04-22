@@ -21,6 +21,9 @@ Class ChillFlix{
 +checkIfUserExists();
 +createUserDialog(String username);
 +search();
++parseMovieData()
++createMovieFromString
++searchDialog()
 }
 
 

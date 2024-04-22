@@ -1,8 +1,14 @@
+import util.TextUI;
+
+import java.util.ArrayList;
+
 abstract public class Media implements IMedia{
     private String title;
     private int releaseYear;
     private String genre;
     private float rating;
+
+    TextUI ui = new TextUI();
 
     Media(String title, int releaseYear, String genre, float rating) {
         this.title = title;
@@ -50,5 +56,30 @@ abstract public class Media implements IMedia{
 
     public void display() {
         //this.mediaDialog();
+    }
+
+    public void mediaDialog() {
+        ArrayList<String> actions = new ArrayList<>();
+        actions.add("Afspil Film");
+        actions.add("Tilføj til favoritter");
+        actions.add("Fjern fra favoritter");
+        actions.add("Tilbage");
+
+        int choice = 0;
+        while (choice > 3) {
+            choice = ui.promptChoice(actions, "");
+            switch (choice) {
+                case 1:
+                    this.play();
+                    break;
+                case 2:
+                    currentUser.addToFavorites();
+                    break;
+                case 3:
+                    currentUser.removeFromFavorites();
+                    break;
+
+            }
+        }
     }
 }
