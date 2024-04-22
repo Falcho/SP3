@@ -72,4 +72,10 @@ public class User {
     public String getPassword() {
         return userPassword;
     }
+
+    @Override
+    public String toString() {
+        return "User: " + userName + '\t' + "; Password: " + userPassword +
+                '\t' + "; favorites: " + favorites+ '\t'  + "; history: " + history + ".";
+    }
 }
