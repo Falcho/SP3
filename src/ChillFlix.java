@@ -1,6 +1,5 @@
 import util.FileIO;
 import util.TextUI;
-
 import java.util.*;
 
 public class ChillFlix {
@@ -74,10 +73,49 @@ public class ChillFlix {
         }else{
             return false;
         }
+
     }
 
+    public void MainDialog() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("1. Vis katagori");
+        list.add("2. Vis farvoritliste");
+        list.add("3. Vis historik");
+        list.add("4. Søg efter titel");
+        list.add("5. Settings");
+        ui.displayMsg("Login menu");
+        boolean proceed = true;
+        while (proceed) {
+            int choice = ui.promptChoice(list, "Vælg en handling");
+            switch (choice) {
+                case 1:
+                    ui.displayMsg("Vis katagori");
+                    //this.selectMovieDialog(relevant media map);
+                    break;
+                case 2:
+                    ui.displayMsg("Vis farvoritliste");
+                    //this.selectMovieDialog(currentUser.farvoritMap);
+                    break;
+                case 3:
+                    ui.displayMsg("Vis historik");
+                    //this.selectMovieDialog(currentUserHistoryMap);
+                    break;
+                case 4:
+                    ui.displayMsg("Søg efter titel");
+                    //this.searchDialog();
+                    break;
+                case 5:
+                    ui.displayMsg("Settings");
+                    //this.settingsDialog();
+                    break;
+                case 6:
+                    proceed = false;
+                    break;
 
 
+            }
+        }
+    }
 
     public void runDialog() {
         ArrayList<String> list = new ArrayList<>();
