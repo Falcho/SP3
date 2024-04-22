@@ -76,6 +76,41 @@ public class ChillFlix {
 
     }
 
+    public void StartDialog() {
+        ArrayList<String> actions = new ArrayList<>();
+        actions.add("1. Login");
+        actions.add("2. Opret bruger");
+        actions.add("3. Luk");
+        boolean loggedln = false;
+        while (!loggedln) {
+            int choice = ui.promptChoice(actions, "Vælg en handling");
+            switch (choice) {
+                case 1:
+                    ui.displayMsg("Login ind");
+                    //loggedln=loginDialog();
+                    break;
+                case 2:
+                    ui.displayMsg("Create user");
+                    //createUserDialog(null);
+                    break;
+                case 3:
+                    ui.displayMsg("Quit");
+                    //exit(0);
+                    break;
+                case 4:
+                    loggedln = false;
+                    break;
+
+            }
+            //if(loggedln) this.mainDialog();
+        }
+    }
+
+
+
+
+
+
     public void MainDialog() {
         ArrayList<String> list = new ArrayList<>();
         list.add("1. Vis katagori");
