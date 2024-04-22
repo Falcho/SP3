@@ -1,31 +1,17 @@
+import java.util.Dictionary;
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Serie extends Media {
+    Map<String, Map<String, Media>> seasonMap;
+
+
     Serie(String title, int releaseYear, String genre, float rating) {
         super(title, releaseYear, genre, rating);
+        this.seasonMap = new TreeMap<String, Map<String, Media>>();
     }
-
-    @Override
-    public void play() {
-        System.out.println("play");
-    }
-
-    @Override
-    public void stop() {
-        System.out.println("stop");
-    }
-
-    @Override
-    public void pause() {
-        System.out.println("pause");
-    }
-
-    @Override
-    public void restart() {
-        System.out.println("restart");
-    }
-
-    @Override
-    public void skipIntro() {
-        System.out.println("skip intro");
+    public Map<String, Map<String, Media>> getSeasonMap() {
+        return seasonMap;
     }
 
     @Override
@@ -37,4 +23,5 @@ public class Serie extends Media {
     public void playNext() {
         System.out.println("play next");
     }
+
 }
