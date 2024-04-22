@@ -19,10 +19,6 @@ TextUI ui= new TextUI();
         this.history= new LinkedHashMap<String, Media>();
     }
 
-public void addToFavorits(Media media){
-    favorites.put(media.getTitle(), media);
-    ui.displayMsg(media.getTitle() +"tilføjet til dine favoriter");
-}
 
     public boolean checkPassword(String pwd){
         return this.getPassword().equals(pwd);
@@ -46,7 +42,11 @@ public void addToFavorits(Media media){
     }
 
     public void addFavorite(Media media){
-        System.out.println("addFavorite()");
+        favorites.put(media.getTitle(), media);
+        ui.displayMsg(media.getTitle() +"tilføjet til dine favoriter");
+    }
+    public void removeFavorite(Media media){
+        favorites.remove(media);
     }
 
     public void addHistory(Media media){
@@ -67,6 +67,11 @@ public void addToFavorits(Media media){
         return history;
     }
 
+    public String getPassword() {
+        return userPassword;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,18 +84,11 @@ public void addToFavorits(Media media){
         return Objects.hash(userName, userPassword, favorites, history);
     }
 
-    public String getPassword() {
-        return userPassword;
-    }
-
     @Override
     public String toString() {
         return  userName + '\t' + userPassword + '\t'  + favorites + '\t'  + history ;
     }
 
-    public void removeFavorite(Media media){
-        favorites.remove(media);
-    }
 
 
 
