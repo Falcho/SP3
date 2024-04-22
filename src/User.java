@@ -75,7 +75,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User: " + userName + '\t' + "; Password: " + userPassword +
-                '\t' + "; favorites: " + favorites+ '\t'  + "; history: " + history + ".";
+        return  userName + '\t' + userPassword + '\t'  + favorites + '\t'  + history ;
     }
 }
