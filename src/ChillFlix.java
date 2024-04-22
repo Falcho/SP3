@@ -89,6 +89,7 @@ public class ChillFlix {
         list.add("Vis historik");
         list.add("Søg efter titel");
         list.add("Settings");
+        list.add("Log ud");
         ui.displayMsg("Hovedmenu");
         boolean proceed = true;
         while (proceed) {
