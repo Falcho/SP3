@@ -18,6 +18,7 @@ Class ChillFlix{
 +boolean loginDialog();
 +deleteUser();
 +checkIfUserExists();
++createUserDialog(String username);
 +search();
 }
 
