@@ -90,8 +90,7 @@ package util {
     +ArrayList<> scanFile();
     +readUserData();
     +readMediaData();
-    +saveUserData();
-    +saveMediaData();
+    +saveData(String header,ArrayList<Object> dataList, String path);
     }
 
     Class TextUI{
