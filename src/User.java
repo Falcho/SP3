@@ -43,7 +43,7 @@ TextUI ui= new TextUI();
 
     public void addFavorite(Media media){
         favorites.put(media.getTitle(), media);
-        ui.displayMsg(media.getTitle() +"tilføjet til dine favoriter");
+        ui.displayMsg(media.getTitle() +" tilføjet til dine favoritter");
     }
     public void removeFavorite(Media media){
         favorites.remove(media);
