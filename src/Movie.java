@@ -9,42 +9,6 @@ public class Movie extends Media {
         this.duration = duration;
     }
 
-    @Override
-    public void play() {
-        System.out.println("Afspil" + this.getTitle());
-
-    }
-
-    @Override
-    public void stop() {
-        System.out.println(this.getTitle() +" Has been stopped.");
-    }
-
-    @Override
-    public void pause() {
-        System.out.println(this.getTitle()+" has been paused.");
-    }
-
-    @Override
-    public void restart() {
-        System.out.println("restarting "+this.getTitle());
-
-    }
-
-    @Override
-    public void skipIntro() {
-        System.out.println("Do you wanna skip " + this.getTitle()+"?");
-    }
-
-    @Override
-    public void playPrevious() {
-        this.restart();
-    }
-
-    @Override
-    public void playNext() {
-    this.restart();
-    }
 
 
     @Override
