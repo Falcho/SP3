@@ -41,6 +41,7 @@ Class User{
 +displayFavorites();
 +displayHistory();
 +addFavorite();
++isFavorite(Media media);
 +removeFavorite();
 +addHistory();
 +resetHistory();

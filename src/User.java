@@ -48,6 +48,12 @@ TextUI ui= new TextUI();
     public void removeFavorite(Media media){
         favorites.remove(media);
     }
+    public boolean isFavorite(Media media){
+        if(!favorites.containsKey(media)){
+            return false;
+        }
+        return true;
+    }
 
     public void addHistory(Media media){
         System.out.println("addHistory()");
