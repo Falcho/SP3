@@ -24,6 +24,7 @@ Class ChillFlix{
 +parseMovieData()
 +createMovieFromString
 +searchDialog()
++addGenre(Media media));
 }
 
 
