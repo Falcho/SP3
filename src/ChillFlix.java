@@ -18,6 +18,7 @@ public class ChillFlix {
         this.mediaPath = mediaPath;
         this.mediaList = new TreeMap<>();
         this.userList = new HashMap<>();
+        this.parseMovieData();
 
     }
 
@@ -115,5 +116,24 @@ public class ChillFlix {
     @Override
     public int hashCode() {
         return Objects.hash(ui, io, userPath, mediaPath, mediaList, userList);
+    }
+
+    public void parseMovieData(){
+      ArrayList<String>movieList= io.readData(mediaPath);
+      for(String title:movieList){
+          Movie movie=createMovieFromString(title);
+          mediaList.put(movie.getTitle(),movie);
+      }
+
+    }
+
+    public Movie createMovieFromString(String movieString) {
+       String[] movieData=movieString.split(";");
+        String title= movieData[0].trim();
+        int releaseYear= Integer.parseInt(movieData[1].trim());
+        String genre= movieData[2].trim();
+        float rating = Float.parseFloat(movieData[3].replace(",",".").trim());
+        Movie movie = new Movie(title,releaseYear,genre,rating,0);
+        return movie;
     }
 }
