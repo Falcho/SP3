@@ -21,6 +21,7 @@ public class ChillFlix {
         this.mediaPath = mediaPath;
         this.mediaList = new TreeMap<>();
         this.userList = new HashMap<>();
+        this.sampleData();
 
     }
 
@@ -83,22 +84,22 @@ public class ChillFlix {
         list.add("3. Vis historik");
         list.add("4. Søg efter titel");
         list.add("5. Settings");
-        ui.displayMsg("Login menu");
+        ui.displayMsg("Hovedmenu");
         boolean proceed = true;
         while (proceed) {
             int choice = ui.promptChoice(list, "Vælg en handling");
             switch (choice) {
                 case 1:
-                    ui.displayMsg("Vis katagori");
-                    //this.selectMovieDialog(relevant media map);
+                    ui.displayMsg("Vis kategorier");
+                    this.selectMovieDialog(mediaList);
                     break;
                 case 2:
-                    ui.displayMsg("Vis farvoritliste");
-                    //this.selectMovieDialog(currentUser.farvoritMap);
+                    ui.displayMsg("Vis favoritliste");
+                    this.selectMovieDialog(currentUser.getFavorites());
                     break;
                 case 3:
                     ui.displayMsg("Vis historik");
-                    //this.selectMovieDialog(currentUserHistoryMap);
+                    this.selectMovieDialog(currentUser.getHistory());
                     break;
                 case 4:
                     ui.displayMsg("Søg efter titel");
@@ -131,7 +132,7 @@ public class ChillFlix {
 
     public boolean createUserDialog(String username) {
         String usernameInput;
-        if (username!=null) {
+        if (username==null) {
             usernameInput = ui.promptText("Indtast brugernavn. Dette må ikke være tomt");
             if (usernameInput.equalsIgnoreCase("") || checkIfUserExists(usernameInput, "Brugernavnet er enten taget, eller tomt - prøv igen.")) {
                 return createUserDialog(null);

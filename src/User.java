@@ -56,6 +56,13 @@ public class User {
     public void showSettings(){
         System.out.println("showSettings()");
     }
+    public Map<String, Media> getFavorites() {
+        return favorites;
+    }
+
+    public Map<String, Media> getHistory() {
+        return history;
+    }
 
     @Override
     public boolean equals(Object o) {
