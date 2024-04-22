@@ -1,5 +1,6 @@
 import util.FileIO;
 import util.TextUI;
+
 import java.util.*;
 
 public class ChillFlix {
@@ -73,7 +74,6 @@ public class ChillFlix {
         }else{
             return false;
         }
-
     }
 
     public void MainDialog() {
