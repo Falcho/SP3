@@ -20,6 +20,9 @@ public class User {
     public void userLogin(){
         System.out.println("userLogin()");
     }
+    public boolean checkPassword(String pwd){
+        return this.getPassword().equals(pwd);
+    }
 
     public void resetPassword(){
         System.out.println("resetPassword()");
