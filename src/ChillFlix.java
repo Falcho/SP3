@@ -123,17 +123,6 @@ public class ChillFlix {
 
     }
 
-//    ChillFLix constructoren skal kalde denne metode.
-//    Denne metode skal kalde io.readData og gemme resultatet i en liste
-//    Hver linje i listen skal laves om til et User object.
-//    Dette gøres ved at bruge split("\t") til at dele strengen op på tabulator tegnet.
-//    [0] indeholder brugerens navn
-//    [1] indeholder kodeordet
-//    [2] indeholder en semikolonsepareret liste af favoritter.
-//    [3] indeholder en semikolonsepareret liste af historik.
-//    De to lister skal konverteres til Map<String,Media>
-//
-//    Opdater klassediagrammet
 
     @Override
     public boolean equals(Object o) {
