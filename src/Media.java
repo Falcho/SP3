@@ -43,6 +43,11 @@ abstract public class Media implements IMedia{
         this.rating = rating;
     }
 
+    @Override
+    public String toString() {
+        return"title='" + title + '\'';
+    }
+
     public void display() {
         //this.mediaDialog();
     }
