@@ -76,6 +76,7 @@ public class ChillFlix {
 
     }
 
+
     public void StartDialog() {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("1. Login");
