@@ -15,6 +15,7 @@ Class ChillFlix{
 -TreeMap<String, Media> mediaList
 +ChillFlix(String userPath, String mediaPath);
 +boolean createUser();
++boolean loginDialog();
 +deleteUser();
 +checkIfUserExists();
 +search();

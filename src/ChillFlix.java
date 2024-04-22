@@ -16,20 +16,28 @@ public class ChillFlix {
         io = new FileIO();
         this.userPath = userPath;
         this.mediaPath = mediaPath;
-        this.mediaList = new HashMap<>();
-        this.userList = new TreeMap<>();
+        this.mediaList = new TreeMap<>();
+        this.userList = new HashMap<>();
 
     }
 
     public void sampleData() {
         mediaList.put("Naruto", new Serie("Naruto", 2004, "awesome", 9.0f));
+        mediaList.put("Chain Saw Man", new Serie("Chain Saw Man", 2009, "Splatter", 8));
+        mediaList.put("One Punch Man", new Serie("One Punch Man", 2004, "Næver", 9));
+        mediaList.put("SwordArt Online", new Serie("SwordArt Online", 2006, "Sværd", 7));
+        mediaList.put("The Deadly Seven Sins", new Serie("The Deadly Seven Sins", 2003, "Dæmoner", 7));
         userList.put("Mhaa", new User("Mhaa","ElskerKage"));
+        userList.put("AndyTheDragon", new User("AndyTheDragon","CodeGenius123"));
+        userList.put("Francky",new User("Francky","123BabyDaddy"));
+        userList.put("DamBoii", new User("DamBoii","TheBigBoi"));
+        userList.put("Falcho",new User("Falcho","MasterPassword"));
 
     }
 
     public boolean createUser(){
         String usernameInput = ui.promptText("Indtast nyt brugernavn");
-        if(userlist.contains(usernameInput)) {
+        if(userList.containsKey(usernameInput)) {
             ui.displayMsg("Brugernavn er allerede taget");
             return createUser();
         }else{
@@ -39,9 +47,9 @@ public class ChillFlix {
             if(!passwordInput.equals(repeatPasswordInput)){
                 ui.displayMsg("Kodeord ikke ens - prøv igen");
                 //toDo skal refactors til at bruge resetPassword()
-            }else if(passwordInput.equals(repeatPasswordInput)){
+            }else {
                 User user = new User(usernameInput, passwordInput);
-                userlist.add(user);
+                userList.put(usernameInput, user);
             }
         } return loginDialog();
     }
@@ -49,19 +57,18 @@ public class ChillFlix {
 
     public boolean loginDialog() {
         String username = ui.promptText("Indtast brugernavn");
+        ui.displayMsg("Du har indtastet et brugernavn.");
         String password = ui.promptText("Indtast kodeord");
-        if (!userlist.contains(username) || !userlist.contains(password)) {
+        if (!userList.containsKey(username) || !userList.get(username).getPassword().equals(password)) {
             ui.displayMsg("brugernavn/kodeord kombination eksisterer ikke");
             return loginDialog();
-        } else if (userlist.contains(username) && userlist.contains(password)) {
-            return true;
         }
         return true;
     }
 
     public boolean checkIfUserExists(String username, String msg){
 
-        if(userlist.contains(username)){
+        if(userList.containsKey(username)){
             ui.displayMsg(msg);
             return true;
         }else{
@@ -69,11 +76,14 @@ public class ChillFlix {
         }
     }
 
+
+
+
     public void runDialog() {
         ArrayList<String> list = new ArrayList<>();
-        list.add("Opret bruger");
-        list.add("Login");
-        list.add("Luk Chillflix");
+        list.add("1. Opret bruger");
+        list.add("2. Login");
+        list.add("3. Luk Chillflix");
         ui.displayMsg("Login menu");
         boolean proceed = true;
         while (proceed) {
@@ -81,9 +91,11 @@ public class ChillFlix {
             switch (choice) {
                 case 1:
                     ui.displayMsg("Opret bruger");
+                    this.createUser();
                     break;
                 case 2:
                     ui.displayMsg("Login");
+                    this.loginDialog();
                     break;
                 case 3:
                     proceed = false;

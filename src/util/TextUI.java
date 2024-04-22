@@ -33,7 +33,7 @@ public class TextUI {
     public int promptNumeric(String s, int maxValue) {
         displayMsg(s);
         if (scan.hasNextInt()) {
-            String input = scan.next();
+            String input = scan.nextLine();
             int parsedInt = Integer.parseInt(input);
             if (parsedInt > 0 && parsedInt <= maxValue) {
                 return parsedInt;
