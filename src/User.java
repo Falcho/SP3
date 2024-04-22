@@ -17,8 +17,8 @@ public class User {
         this.history= new LinkedHashMap<String, Media>();
     }
 
-    public void userLogin(){
-        System.out.println("userLogin()");
+    public boolean checkPassword(String pwd){
+        return this.getPassword().equals(pwd);
     }
 
     public void resetPassword(){
@@ -55,6 +55,13 @@ public class User {
 
     public void showSettings(){
         System.out.println("showSettings()");
+    }
+    public Map<String, Media> getFavorites() {
+        return favorites;
+    }
+
+    public Map<String, Media> getHistory() {
+        return history;
     }
 
     @Override

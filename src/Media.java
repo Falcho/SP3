@@ -42,4 +42,8 @@ abstract public class Media implements IMedia{
     public void setRating(float rating) {
         this.rating = rating;
     }
+
+    public void display() {
+        //this.mediaDialog();
+    }
 }

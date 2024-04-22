@@ -13,11 +13,13 @@ Class ChillFlix{
 -String mediaPath
 -HashMap<String, User> userList
 -TreeMap<String, Media> mediaList
+-User currentUser
 +ChillFlix(String userPath, String mediaPath);
 +boolean createUser();
 +boolean loginDialog();
 +deleteUser();
 +checkIfUserExists();
++createUserDialog(String username);
 +search();
 }
 
@@ -29,6 +31,7 @@ Class User{
 -LinkedHashMap<String, Media> history
 +User(String name, String password);
 +userLogin();
++checkPassword(String pwd);
 +resetPassword();
 +changePassword();
 +changeUserName();
