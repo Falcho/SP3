@@ -24,10 +24,10 @@ public class ChillFlix {
         this.mediaPath = mediaPath;
         this.mediaList = new TreeMap<>();
         this.userList = new HashMap<>();
+        this.genreMap = new TreeMap<>();
         //this.sampleData();
         this.parseMovieData();
-        this.genreMap = new TreeMap<>();
-        parseUserData();
+        this.parseUserData();
     }
 
     public void sampleData() {
@@ -96,7 +96,7 @@ public class ChillFlix {
             switch (choice) {
                 case 1:
                     ui.displayMsg("Vis kategorier");
-                    this.selectMovieDialog(mediaList);
+                    this.selectGenreDialog();
                     break;
                 case 2:
                     ui.displayMsg("Vis favoritliste");
@@ -160,6 +160,12 @@ public class ChillFlix {
         }
     }
 
+    public void selectGenreDialog() {
+        List<String> genreList = new ArrayList<>(genreMap.keySet());
+        int choice = ui.promptChoice(genreList, "Vælg en genre fra listen");
+        selectMovieDialog(genreMap.get(genreList.get(choice-1)));
+    }
+
 
     public void selectMovieDialog(Map<String, Media>mediaMap){
         List<String> titleList = new ArrayList(mediaMap.keySet());
@@ -221,6 +227,7 @@ public class ChillFlix {
                 genreMap.put(genre.trim(),new TreeMap<String,Media>());
             }
             genreMap.get(genre.trim()).put(movie.getTitle(),movie);
+
         }
 
     }
