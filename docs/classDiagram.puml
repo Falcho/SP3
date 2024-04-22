@@ -21,6 +21,7 @@ Class ChillFlix{
 +search();
 +parseMovieData()
 +createMovieFromString
++searchDialog()
 }
 
 

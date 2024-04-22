@@ -136,4 +136,14 @@ public class ChillFlix {
         Movie movie = new Movie(title,releaseYear,genre,rating,0);
         return movie;
     }
+
+    public void searchDialog(){
+        String searchWord = promptText("Søg efter en titel");
+        List resultList = mediaList.keySet().stream().filter((title) -> title.contains(searchWord)).toList();
+        if(resultList.isEmpty()) {
+            System.out.println("Fejlmeddelse");
+        }else{
+            selectMovieDialog(resultList);
+        }
+    }
 }
