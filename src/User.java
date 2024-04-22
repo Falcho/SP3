@@ -84,4 +84,11 @@ public class User {
     public String toString() {
         return  userName + '\t' + userPassword + '\t'  + favorites + '\t'  + history ;
     }
+
+    public void removeFavorites(Media media){
+        favorites.remove(media);
+    }
+
+
+
 }
