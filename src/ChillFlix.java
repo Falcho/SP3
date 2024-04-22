@@ -11,7 +11,7 @@ public class ChillFlix {
     Map<String, Media> mediaList;
     Map<String, User> userList;
 
-    ChillFlix(String userPath, String mediaPath){
+    ChillFlix(String userPath, String mediaPath) {
         ui = new TextUI();
         io = new FileIO();
         this.userPath = userPath;
@@ -27,31 +27,32 @@ public class ChillFlix {
         mediaList.put("One Punch Man", new Serie("One Punch Man", 2004, "Næver", 9));
         mediaList.put("SwordArt Online", new Serie("SwordArt Online", 2006, "Sværd", 7));
         mediaList.put("The Deadly Seven Sins", new Serie("The Deadly Seven Sins", 2003, "Dæmoner", 7));
-        userList.put("Mhaa", new User("Mhaa","ElskerKage"));
-        userList.put("AndyTheDragon", new User("AndyTheDragon","CodeGenius123"));
-        userList.put("Francky",new User("Francky","123BabyDaddy"));
-        userList.put("DamBoii", new User("DamBoii","TheBigBoi"));
-        userList.put("Falcho",new User("Falcho","MasterPassword"));
+        userList.put("Mhaa", new User("Mhaa", "ElskerKage"));
+        userList.put("AndyTheDragon", new User("AndyTheDragon", "CodeGenius123"));
+        userList.put("Francky", new User("Francky", "123BabyDaddy"));
+        userList.put("DamBoii", new User("DamBoii", "TheBigBoi"));
+        userList.put("Falcho", new User("Falcho", "MasterPassword"));
 
     }
 
-    public boolean createUser(){
+    public boolean createUser() {
         String usernameInput = ui.promptText("Indtast nyt brugernavn");
-        if(userList.containsKey(usernameInput)) {
+        if (userList.containsKey(usernameInput)) {
             ui.displayMsg("Brugernavn er allerede taget");
             return createUser();
-        }else{
+        } else {
             String passwordInput = ui.promptText("Indtast kodeord");
             String repeatPasswordInput = ui.promptText("Gentag kodeord");
 
-            if(!passwordInput.equals(repeatPasswordInput)){
+            if (!passwordInput.equals(repeatPasswordInput)) {
                 ui.displayMsg("Kodeord ikke ens - prøv igen");
                 //toDo skal refactors til at bruge resetPassword()
-            }else {
+            } else {
                 User user = new User(usernameInput, passwordInput);
                 userList.put(usernameInput, user);
             }
-        } return loginDialog();
+        }
+        return loginDialog();
     }
 
 
@@ -66,54 +67,68 @@ public class ChillFlix {
         return true;
     }
 
-    public boolean checkIfUserExists(String username, String msg){
-
-        if(userList.containsKey(username)){
+    public boolean checkIfUserExists(String username, String msg) {
+        if (userList.containsKey(username)) {
             ui.displayMsg(msg);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
+    public boolean createUserDialog(String username) {
+        String usernameInput = ui.promptText("Indtast brugernavn. Dette må ikke være tomt");
+        if (usernameInput.equalsIgnoreCase("") || usernameInput.equals(null) || userList.containsKey(usernameInput)) {
+            checkIfUserExists(usernameInput, "Brugernavnet er enten taget, eller tomt - prøv igen.");
+            createUserDialog(username);
+        } else {
+            String passwordInput = ui.promptText("Indtast kodeord");
+            String repeatPasswordInput = ui.promptText("Gentag kodeord");
+            if (!passwordInput.equals(repeatPasswordInput)) {
+                createUserDialog(username);
+            } else {
+                User user = new User(usernameInput, passwordInput);
+                userList.put(usernameInput, user);
+                io.saveData("header", new ArrayList(userList.values()), data / user.csv);
+                return true;
+            }
 
 
+            public void runDialog () {
+                ArrayList<String> list = new ArrayList<>();
+                list.add("1. Opret bruger");
+                list.add("2. Login");
+                list.add("3. Luk Chillflix");
+                ui.displayMsg("Login menu");
+                boolean proceed = true;
+                while (proceed) {
+                    int choice = ui.promptChoice(list, "Vælg en handling");
+                    switch (choice) {
+                        case 1:
+                            ui.displayMsg("Opret bruger");
+                            this.createUser();
+                            break;
+                        case 2:
+                            ui.displayMsg("Login");
+                            this.loginDialog();
+                            break;
+                        case 3:
+                            proceed = false;
+                            break;
+                    }
+                }
+            }
 
-    public void runDialog() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("1. Opret bruger");
-        list.add("2. Login");
-        list.add("3. Luk Chillflix");
-        ui.displayMsg("Login menu");
-        boolean proceed = true;
-        while (proceed) {
-            int choice = ui.promptChoice(list, "Vælg en handling");
-            switch (choice) {
-                case 1:
-                    ui.displayMsg("Opret bruger");
-                    this.createUser();
-                    break;
-                case 2:
-                    ui.displayMsg("Login");
-                    this.loginDialog();
-                    break;
-                case 3:
-                    proceed = false;
-                    break;
+            @Override
+            public boolean equals (Object o){
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+                ChillFlix chillFlix = (ChillFlix) o;
+                return Objects.equals(ui, chillFlix.ui) && Objects.equals(io, chillFlix.io) && Objects.equals(userPath, chillFlix.userPath) && Objects.equals(mediaPath, chillFlix.mediaPath) && Objects.equals(mediaList, chillFlix.mediaList) && Objects.equals(userList, chillFlix.userList);
+            }
+
+            @Override
+            public int hashCode () {
+                return Objects.hash(ui, io, userPath, mediaPath, mediaList, userList);
             }
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ChillFlix chillFlix = (ChillFlix) o;
-        return Objects.equals(ui, chillFlix.ui) && Objects.equals(io, chillFlix.io) && Objects.equals(userPath, chillFlix.userPath) && Objects.equals(mediaPath, chillFlix.mediaPath) && Objects.equals(mediaList, chillFlix.mediaList) && Objects.equals(userList, chillFlix.userList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(ui, io, userPath, mediaPath, mediaList, userList);
-    }
-}
