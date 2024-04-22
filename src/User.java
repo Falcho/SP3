@@ -41,6 +41,12 @@ public class User {
     public void addFavorite(){
         System.out.println("addFavorite()");
     }
+    public boolean isFavorite(Media media){
+        if(!favorites.containsKey(media)){
+            return false;
+        }
+        return true;
+    }
 
     public void removeFavorite(){
         System.out.println("removeFavorite()");
