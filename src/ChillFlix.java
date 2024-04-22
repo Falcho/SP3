@@ -24,6 +24,7 @@ public class ChillFlix {
         //this.sampleData();
         this.parseMovieData();
 
+        parseUserData();
     }
 
     public void sampleData() {
@@ -162,6 +163,26 @@ public class ChillFlix {
         int choice = ui.promptChoice(titleList,"Vælg en film fra listen");
         mediaMap.get(titleList.get(choice)).mediaDialog(currentUser);
     }
+
+    public void parseUserData(){
+        List<String> userDataList = io.readData(userPath);
+        for(String userData : userDataList){
+            String[] userDataArray = userData.split("\t");
+            String userName = userDataArray[0].trim();
+            String userPassword = userDataArray[1].trim();
+            User user = new User(userName, userPassword);
+            for(String movieTitle : userDataArray[2].split(";")){
+                user.addFavorite(mediaList.get(movieTitle.trim()));
+            }
+            for(String movieTitle : userDataArray[3].split(";")){
+                user.addHistory(mediaList.get(movieTitle.trim()));
+            }
+            userList.put(userName,user);
+        }
+
+
+    }
+
 
     @Override
     public boolean equals(Object o) {
