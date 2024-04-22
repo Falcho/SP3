@@ -111,7 +111,7 @@ public class ChillFlix {
                     break;
                 case 4:
                     ui.displayMsg("Søg efter titel");
-                    //this.searchDialog();
+                    this.searchDialog();
                     break;
                 case 5:
                     ui.displayMsg("Settings");
@@ -263,13 +263,18 @@ public class ChillFlix {
         return movie;
     }
 
+
     public void searchDialog(){
-        String searchWord = ui.promptText("Søg efter en titel");
-        List resultList = mediaList.keySet().stream().filter((title) -> title.contains(searchWord)).toList();
+        String searchWord = ui.promptText("Søg efter en titel").toLowerCase();
+        List<String> resultList = mediaList.keySet().stream().filter((title) -> title.toLowerCase().contains(searchWord)).toList();
         if(resultList.isEmpty()) {
-            System.out.println("Fejlmeddelse");
+            ui.displayMsg("Fejlmeddelse");
         }else{
-            //selectMovieDialog(resultList);
+            Map<String, Media> resultMap = new TreeMap<>();
+            for (String title: resultList) {
+                resultMap.put(title,mediaList.get(title));
+            }
+            selectMovieDialog(resultMap);
         }
     }
     @Override
