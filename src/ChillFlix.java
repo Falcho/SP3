@@ -350,7 +350,7 @@ public class ChillFlix {
         String searchWord = ui.promptText("Søg efter en titel").toLowerCase();
         List<String> resultList = mediaList.keySet().stream().filter((title) -> title.toLowerCase().contains(searchWord)).toList();
         if (resultList.isEmpty()) {
-            ui.displayMsg("Fejlmeddelse");
+            ui.displayMsg("Din søgning gav ingen resultater");
         } else {
             Map<String, Media> resultMap = new TreeMap<>();
             for (String title : resultList) {
