@@ -13,7 +13,7 @@ public class ChillFlix {
     private String seriePath;
     Map<String, Media> mediaList;
     Map<String, User> userList;
-    Map<String, Map<String,Media>> genreMap;
+    Map<String, Map<String, Media>> genreMap;
     User currentUser;
 
 
@@ -55,6 +55,7 @@ public class ChillFlix {
         }
 
     }
+
     public void startDialog() {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("Login");
@@ -66,7 +67,7 @@ public class ChillFlix {
             switch (choice) {
                 case 1:
                     ui.displayMsg("Login ind");
-                    loggedln=loginDialog();
+                    loggedln = loginDialog();
                     break;
                 case 2:
                     ui.displayMsg("Create user");
@@ -81,9 +82,10 @@ public class ChillFlix {
                     break;
 
             }
-            if(loggedln) this.mainDialog();
+            if (loggedln) this.mainDialog();
         }
     }
+
     public void mainDialog() {
         ArrayList<String> list = new ArrayList<>();
         list.add("Vis katagori");
@@ -98,16 +100,28 @@ public class ChillFlix {
             int choice = ui.promptChoice(list, "Vælg en handling");
             switch (choice) {
                 case 1:
-                    ui.displayMsg("Vis kategorier");
+                    ui.displayMsg("Kategorier");
                     this.selectGenreDialog();
                     break;
                 case 2:
-                    ui.displayMsg("Vis favoritliste");
-                    this.selectMovieDialog(currentUser.getFavorites());
+                    if (currentUser.getFavorites().isEmpty()) {
+                        ui.displayMsg("-----------------");
+                        ui.displayMsg("Favoritlisten er tom");
+                        ui.displayMsg("-----------------");
+                        mainDialog();
+                    }
+                        ui.displayMsg("Din favoritliste");
+                        this.selectMovieDialog(currentUser.getFavorites());
                     break;
                 case 3:
-                    ui.displayMsg("Vis historik");
-                    this.selectMovieDialog(currentUser.getHistory());
+                    if(currentUser.getHistory().isEmpty()) {
+                        ui.displayMsg("-----------------");
+                        ui.displayMsg("Historik er tom");
+                        ui.displayMsg("-----------------");
+                        mainDialog();
+                    }
+                        ui.displayMsg("Din historik");
+                        this.selectMovieDialog(currentUser.getHistory());
                     break;
                 case 4:
                     ui.displayMsg("Søg efter titel");
@@ -136,17 +150,14 @@ public class ChillFlix {
     }
 
 
-
-
     public boolean createUserDialog(String username) {
         String usernameInput;
-        if (username==null) {
+        if (username == null) {
             usernameInput = ui.promptText("Indtast brugernavn. Dette må ikke være tomt");
             if (usernameInput.equalsIgnoreCase("") || checkIfUserExists(usernameInput, "Brugernavnet er enten taget, eller tomt - prøv igen.")) {
                 return createUserDialog(null);
             }
-        }
-        else {
+        } else {
             usernameInput = username;
         }
         String passwordInput = ui.promptText("Indtast kodeord");
@@ -166,117 +177,120 @@ public class ChillFlix {
     public void selectGenreDialog() {
         List<String> genreList = new ArrayList<>(genreMap.keySet());
         int choice = ui.promptChoice(genreList, "Vælg en genre fra listen");
-        selectMovieDialog(genreMap.get(genreList.get(choice-1)));
+        selectMovieDialog(genreMap.get(genreList.get(choice - 1)));
     }
 
 
-    public void selectMovieDialog(Map<String, Media>mediaMap){
+    public void selectMovieDialog(Map<String, Media> mediaMap) {
         List<String> titleList = new ArrayList(mediaMap.keySet());
-        int choice = ui.promptChoice(titleList,"Vælg en film fra listen");
-        mediaMap.get(titleList.get(choice-1)).mediaDialog(currentUser);
+        int choice = ui.promptChoice(titleList, "Vælg en film fra listen");
+        mediaMap.get(titleList.get(choice - 1)).mediaDialog(currentUser);
     }
 
-    public void parseUserData(){
+    public void parseUserData() {
         List<String> userDataList = io.readData(userPath);
-        for(String userData : userDataList){
+        for (String userData : userDataList) {
             String[] userDataArray = userData.split("\t");
             String userName = userDataArray[0].trim();
             String userPassword = userDataArray[1].trim();
             User user = new User(userName, userPassword);
-            for(String movieTitle : userDataArray[2].split(";")){
-                if (!movieTitle.trim().equals("")){
+            for (String movieTitle : userDataArray[2].split(";")) {
+                if (!movieTitle.trim().equals("")) {
                     //user.addFavorite(mediaList.get(movieTitle.trim()));
                 }
             }
-            for(String movieTitle : userDataArray[3].split(";")){
+            for (String movieTitle : userDataArray[3].split(";")) {
                 if (!movieTitle.trim().equals("")) {
                     //user.addHistory(mediaList.get(movieTitle.trim()));
                 }
             }
-            userList.put(userName,user);
+            userList.put(userName, user);
         }
 
 
     }
-    public void parseSerieData(){
-        ArrayList<String>serieList= io.readData(seriePath);
-        for(String title:serieList){
-            Serie serie=createSerieFromString(title);
-            mediaList.put(serie.getTitle(),serie);
+
+    public void parseSerieData() {
+        ArrayList<String> serieList = io.readData(seriePath);
+        for (String title : serieList) {
+            Serie serie = createSerieFromString(title);
+            mediaList.put(serie.getTitle(), serie);
             addGenre(serie);
         }
     }
 
 
-
-    public void parseMovieData(){
-      ArrayList<String>movieList= io.readData(moviePath);
-      for(String title:movieList){
-          Movie movie=createMovieFromString(title);
-          mediaList.put(movie.getTitle(),movie);
-          addGenre(movie);
-      }
+    public void parseMovieData() {
+        ArrayList<String> movieList = io.readData(moviePath);
+        for (String title : movieList) {
+            Movie movie = createMovieFromString(title);
+            mediaList.put(movie.getTitle(), movie);
+            addGenre(movie);
+        }
     }
 
-    public void addGenre(Media movie){
+    public void addGenre(Media movie) {
         ArrayList<String> genreList = new ArrayList<>(List.of(movie.getGenre().split(",")));
-        for(String genre: genreList){
-            if(!genreMap.containsKey(genre.trim())){
-                genreMap.put(genre.trim(),new TreeMap<String,Media>());
+        for (String genre : genreList) {
+            if (!genreMap.containsKey(genre.trim())) {
+                genreMap.put(genre.trim(), new TreeMap<String, Media>());
             }
-            genreMap.get(genre.trim()).put(movie.getTitle(),movie);
+            genreMap.get(genre.trim()).put(movie.getTitle(), movie);
 
         }
 
     }
+
     public Serie createSerieFromString(String serieString) {
-        String[] serieData=serieString.split(";");
-        String title= serieData[0].trim();
+        String[] serieData = serieString.split(";");
+        String title = serieData[0].trim();
         String years = serieData[1].trim(); //1991-1992
-        int startYear= Integer.parseInt(years.split("-")[0]);
+        int startYear = Integer.parseInt(years.split("-")[0]);
         //int endYear= Integer.parseInt(years.split("-")[1]);
 
-        String genre= serieData[2].trim();
-        float rating = Float.parseFloat(serieData[3].replace(",",".").trim());
+        String genre = serieData[2].trim();
+        float rating = Float.parseFloat(serieData[3].replace(",", ".").trim());
         String seasonEpisodeString = serieData[4].trim();
         String[] seasonEpisodeList = seasonEpisodeString.split(",");
-        Serie serie = new Serie(title,startYear,genre,rating);
+        Serie serie = new Serie(title, startYear, genre, rating);
 
         for (String seasonEpisode : seasonEpisodeList) {
             int seasonNumber = Integer.parseInt(seasonEpisode.split("-")[0].trim());
             int episodesInSeason = Integer.parseInt(seasonEpisode.split("-")[1].trim());
-            serie.getSeasonMap().put(title + " sæson " + seasonNumber,new TreeMap<String, Media>());
-            for (int i=1; i<=episodesInSeason; i++){
-                Episode ep = new Episode(title + "S" + seasonNumber + "E" + i,startYear,genre,rating,0);
+            serie.getSeasonMap().put(title + " sæson " + seasonNumber, new TreeMap<String, Media>());
+            for (int i = 1; i <= episodesInSeason; i++) {
+                Episode ep = new Episode(title + "S" + seasonNumber + "E" + i, startYear, genre, rating, 0);
                 serie.getSeasonMap().get(title + " sæson " + seasonNumber).put(ep.getTitle(), ep);
             }
         }
         return serie;
     }
+
     public Movie createMovieFromString(String movieString) {
-        String[] movieData=movieString.split(";");
-        String title= movieData[0].trim();
-        int releaseYear= Integer.parseInt(movieData[1].trim());
-        String genre= movieData[2].trim();
-        float rating = Float.parseFloat(movieData[3].replace(",",".").trim());
-        Movie movie = new Movie(title,releaseYear,genre,rating,0);
+        String[] movieData = movieString.split(";");
+        String title = movieData[0].trim();
+        int releaseYear = Integer.parseInt(movieData[1].trim());
+        String genre = movieData[2].trim();
+        float rating = Float.parseFloat(movieData[3].replace(",", ".").trim());
+        Movie movie = new Movie(title, releaseYear, genre, rating, 0);
         return movie;
     }
 
 
-    public void searchDialog(){
+    public void searchDialog() {
         String searchWord = ui.promptText("Søg efter en titel").toLowerCase();
         List<String> resultList = mediaList.keySet().stream().filter((title) -> title.toLowerCase().contains(searchWord)).toList();
-        if(resultList.isEmpty()) {
+        if (resultList.isEmpty()) {
             ui.displayMsg("Fejlmeddelse");
-        }else{
+        } else {
             Map<String, Media> resultMap = new TreeMap<>();
-            for (String title: resultList) {
-                resultMap.put(title,mediaList.get(title));
+            for (String title : resultList) {
+                resultMap.put(title, mediaList.get(title));
             }
             selectMovieDialog(resultMap);
         }
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

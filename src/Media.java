@@ -2,7 +2,7 @@ import util.TextUI;
 
 import java.util.ArrayList;
 
-abstract public class Media implements IMedia{
+abstract public class Media implements IMedia {
     private String title;
     private int releaseYear;
     private String genre;
@@ -51,7 +51,7 @@ abstract public class Media implements IMedia{
 
     @Override
     public String toString() {
-        return"title='" + title + '\'';
+        return "title='" + title + '\'';
     }
 
     public void display() {
@@ -81,9 +81,11 @@ abstract public class Media implements IMedia{
                     currentUser.removeFavorite(this);
                     break;
 
+
             }
         }
     }
+
     @Override
     public void play() {
         ui.displayMsg("--------------------");
@@ -93,23 +95,23 @@ abstract public class Media implements IMedia{
 
     @Override
     public void stop() {
-        System.out.println(this.getTitle() +" Has been stopped.");
+        System.out.println(this.getTitle() + " Has been stopped.");
     }
 
     @Override
     public void pause() {
-        System.out.println(this.getTitle()+" has been paused.");
+        System.out.println(this.getTitle() + " has been paused.");
     }
 
     @Override
     public void restart() {
-        System.out.println("restarting "+this.getTitle());
+        System.out.println("restarting " + this.getTitle());
 
     }
 
     @Override
     public void skipIntro() {
-        System.out.println("Do you wanna skip " + this.getTitle()+"?");
+        System.out.println("Do you wanna skip " + this.getTitle() + "?");
     }
 
     @Override

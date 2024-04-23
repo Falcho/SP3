@@ -65,6 +65,7 @@ TextUI ui= new TextUI();
     public void showSettings(){
         System.out.println("showSettings()");
     }
+
     public Map<String, Media> getFavorites() {
         return favorites;
     }
