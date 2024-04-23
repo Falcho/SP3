@@ -214,6 +214,7 @@ public class ChillFlix {
                     break;
                 case 2:
                    currentUser.toggleFavorite(media);
+                   //TODO Fix tilføj/fjern dialog
                     this.saveUserData();
                     break;
                 default:
