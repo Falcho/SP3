@@ -181,8 +181,41 @@ public class ChillFlix {
         }
     }
 
-    private void serieDialog(Media chosenMedia) {
-        mediaDialog(chosenMedia);
+    private void serieDialog(Media media) {
+        List<String> seasonList = new ArrayList<>(((Serie)media).getSeasonMap().keySet());
+        ArrayList<String> actions = new ArrayList<>();
+        actions.add("Afspil Serie fra starten");
+        if (currentUser.isFavorite(media)) {
+            actions.add("Fjern fra favoritter");
+        } else {
+            actions.add("Tilføj til favoritter");
+        }
+        actions.addAll(seasonList);
+        //actions.add("Tilbage");
+
+        int choice = 0;
+        while (choice < actions.size()) {
+            //ui.displayMsg("Du har valgt: " + media.getTitle());
+            choice = ui.promptChoice(actions, "");
+            switch (choice) {
+                case 1:
+                    media.play();
+                    currentUser.addHistory(media);
+                    this.saveUserData();
+                    break;
+                case 2:
+                    if(currentUser.isFavorite(media)) {
+                        currentUser.removeFavorite(media);
+                    } else {
+                        currentUser.addFavorite(media);
+                    }
+                    this.saveUserData();
+                    break;
+                default:
+                    //selectMovieDialog(((Serie) media).getSeasonMap().getOrDefault(seasonList.get(choice-2), "Sæson 1"));
+                    selectMovieDialog(((Serie) media).getSeasonMap().get(seasonList.get(choice-2)));
+            }
+        }
     }
 
     public void mediaDialog(Media media) {
@@ -210,6 +243,7 @@ public class ChillFlix {
                         currentUser.removeFavorite(media);
                     } else {
                         currentUser.addFavorite(media);
+                        ui.displayMsg(media.getTitle() + " tilføjet til dine favoritter");
                     }
                     this.saveUserData();
                     break;
@@ -223,14 +257,16 @@ public class ChillFlix {
             String[] userDataArray = userData.split("\t");
             String userName = userDataArray[0].trim();
             String userPassword = userDataArray[1].trim();
+            String favorites = userDataArray[2].replace("[","").replace("]","").trim();
+            String history = userDataArray[3].replace("[","").replace("]","").trim();
             User user = new User(userName, userPassword);
-            if (userDataArray[2].contains(";")) {
-                for (String movieTitle : userDataArray[2].split(";")) {
+            if (favorites.contains(";")) {
+                for (String movieTitle : favorites.split(";")) {
                     user.addFavorite(mediaList.get(movieTitle.trim()));
                 }
             }
-            if (userDataArray[3].contains(";")) {
-                for (String movieTitle : userDataArray[3].split(";")) {
+            if (history.contains(";")) {
+                for (String movieTitle : history.split(";")) {
                     user.addHistory(mediaList.get(movieTitle.trim()));
                 }
             }
@@ -289,7 +325,10 @@ public class ChillFlix {
             int episodesInSeason = Integer.parseInt(seasonEpisode.split("-")[1].trim());
             serie.getSeasonMap().put(title + " sæson " + seasonNumber, new TreeMap<String, Media>());
             for (int i = 1; i <= episodesInSeason; i++) {
-                Episode ep = new Episode(title + "S" + seasonNumber + "E" + i, startYear, genre, rating, 0);
+                StringBuilder episodeTitle = new StringBuilder(title);
+                episodeTitle.append(" S").append(seasonNumber<10 ? "0" : "").append(seasonNumber);
+                episodeTitle.append("E").append(i<10 ? "0" : "").append(i);
+                Episode ep = new Episode(episodeTitle.toString(), startYear, genre, rating, 0);
                 serie.getSeasonMap().get(title + " sæson " + seasonNumber).put(ep.getTitle(), ep);
             }
         }
