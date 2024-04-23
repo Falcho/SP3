@@ -150,6 +150,7 @@ public class ChillFlix {
         String passwordInput = ui.promptText("Indtast kodeord");
         String repeatPasswordInput = ui.promptText("Gentag kodeord");
         if (!passwordInput.equals(repeatPasswordInput)) {
+            ui.displayMsg("Kodeordene skal være ens");
             return createUserDialog(usernameInput);
         } else {
             User user = new User(usernameInput, passwordInput);
@@ -172,7 +173,12 @@ public class ChillFlix {
     public void selectMovieDialog(Map<String, Media> mediaMap) {
         if (!mediaMap.isEmpty() && mediaMap!=null) {
             List<String> titleList = new ArrayList(mediaMap.keySet());
+            //Få antal elementer i listen
+            //TODO Tilføj "Tilbage" til listen
             int choice = ui.promptChoice(titleList, "Vælg fra listen");
+            //Hvis du har valgt den sidste mulighed i listen (en mulighed som er større end antal elementer i listen
+            //Gør ingenting
+            //Ellers :
             Media chosenMedia = mediaMap.get(titleList.get(choice - 1));
             if (chosenMedia instanceof Serie) {
                 this.serieDialog(chosenMedia);
@@ -220,7 +226,7 @@ public class ChillFlix {
 
     public void mediaDialog(Media media) {
         ArrayList<String> actions = new ArrayList<>();
-        actions.add("Afspil Film");
+        actions.add("Afspil");
         if (currentUser.isFavorite(media)) {
             actions.add("Fjern fra favoritter");
         } else {
@@ -239,7 +245,8 @@ public class ChillFlix {
                     this.saveUserData();
                     break;
                 case 2:
-                    currentUser.toggleFavorite(media);
+                    boolean toggle = currentUser.toggleFavorite(media);
+                    actions.set(1, (toggle ? "Fjern fra" : "Tilføj til") + " favoritter");
                     this.saveUserData();
                     break;
             }
