@@ -183,14 +183,18 @@ public class ChillFlix {
             String userName = userDataArray[0].trim();
             String userPassword = userDataArray[1].trim();
             User user = new User(userName, userPassword);
-            for(String movieTitle : userDataArray[2].split(";")){
-                if (!movieTitle.trim().equals("")){
-                    //user.addFavorite(mediaList.get(movieTitle.trim()));
+            if (userDataArray[2].contains(";")) {
+                for (String movieTitle : userDataArray[2].split(";")) {
+                    if (!movieTitle.trim().equals("")) {
+                        user.addFavorite(mediaList.get(movieTitle.trim()));
+                    }
                 }
             }
-            for(String movieTitle : userDataArray[3].split(";")){
-                if (!movieTitle.trim().equals("")) {
-                    //user.addHistory(mediaList.get(movieTitle.trim()));
+            if (userDataArray[3].contains(";")) {
+                for (String movieTitle : userDataArray[3].split(";")) {
+                    if (!movieTitle.trim().equals("")) {
+                        user.addHistory(mediaList.get(movieTitle.trim()));
+                    }
                 }
             }
             userList.put(userName,user);
