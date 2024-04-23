@@ -58,7 +58,7 @@ public class ChillFlix {
 
     public void startDialog() {
         ArrayList<String> actions = new ArrayList<>();
-        actions.add("Login");
+        actions.add("Log ind");
         actions.add("Opret bruger");
         actions.add("Luk");
         boolean loggedln = false;
@@ -66,15 +66,15 @@ public class ChillFlix {
             int choice = ui.promptChoice(actions, "Vælg en handling");
             switch (choice) {
                 case 1:
-                    ui.displayMsg("Login ind");
-                    loggedln = loginDialog();
+                    ui.displayMsg("Log ind");
+                    loggedln=loginDialog();
                     break;
                 case 2:
-                    ui.displayMsg("Create user");
+                    ui.displayMsg("Opret Bruger");
                     createUserDialog(null);
                     break;
                 case 3:
-                    ui.displayMsg("Quit");
+                    ui.displayMsg("Luk");
                     exit(0);
                     break;
                 case 4:
@@ -128,7 +128,7 @@ public class ChillFlix {
                     this.searchDialog();
                     break;
                 case 5:
-                    ui.displayMsg("Settings");
+                    ui.displayMsg("Indstillinger");
                     //this.settingsDialog();
                     break;
                 case 6:
@@ -196,14 +196,18 @@ public class ChillFlix {
             String userName = userDataArray[0].trim();
             String userPassword = userDataArray[1].trim();
             User user = new User(userName, userPassword);
-            for (String movieTitle : userDataArray[2].split(";")) {
-                if (!movieTitle.trim().equals("")) {
-                    //user.addFavorite(mediaList.get(movieTitle.trim()));
+            if (userDataArray[2].contains(";")) {
+                for (String movieTitle : userDataArray[2].split(";")) {
+                    if (!movieTitle.trim().equals("")) {
+                        user.addFavorite(mediaList.get(movieTitle.trim()));
+                    }
                 }
             }
-            for (String movieTitle : userDataArray[3].split(";")) {
-                if (!movieTitle.trim().equals("")) {
-                    //user.addHistory(mediaList.get(movieTitle.trim()));
+            if (userDataArray[3].contains(";")) {
+                for (String movieTitle : userDataArray[3].split(";")) {
+                    if (!movieTitle.trim().equals("")) {
+                        user.addHistory(mediaList.get(movieTitle.trim()));
+                    }
                 }
             }
             userList.put(userName, user);
