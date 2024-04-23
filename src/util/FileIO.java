@@ -11,6 +11,9 @@ public class FileIO {
     public ArrayList<String> readData(String path) {
         ArrayList<String> dataList = new ArrayList<>();
         File file = new File(path);
+        if(!file.exists()) {
+            saveData("header", new ArrayList<>(), path);
+        }
         try {
             Scanner scan = new Scanner(file);
             scan.nextLine();//skip header
@@ -21,7 +24,7 @@ public class FileIO {
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("File was not found");
+            System.out.println("File not found");
         }
         return dataList;
     }

@@ -1,6 +1,8 @@
 import util.TextUI;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 abstract public class Media implements IMedia{
     private String title;
@@ -10,11 +12,14 @@ abstract public class Media implements IMedia{
 
     TextUI ui = new TextUI();
 
+
+
     Media(String title, int releaseYear, String genre, float rating) {
         this.title = title;
         this.releaseYear = releaseYear;
         this.genre = genre;
         this.rating = rating;
+
     }
 
     public String getTitle() {
@@ -121,5 +126,8 @@ abstract public class Media implements IMedia{
     public void playNext() {
         this.restart();
     }
+
+
+
 
 }
