@@ -112,7 +112,6 @@ public class ChillFlix {
                     }
                     break;
                 case 4:
-                    ui.displayMsg("Søg efter titel");
                     this.searchDialog();
                     break;
                 case 5:
