@@ -25,22 +25,6 @@ public class Serie extends Media {
         System.out.println("play next");
     }
 
-    public void mediaDialog(User currentUser){
-        ArrayList<String>actions= new ArrayList<>();
-        List seasonList = new ArrayList<>(this.seasonMap.keySet());
-        actions.addAll(seasonList);
-        int choice = 0;
-       while (choice<actions.size()){
-           choice = ui.promptChoice(actions, "");
-       }
-       switch (choice) {
-           case 1:
-               this.play();
-               break;
-           default:
-               ChillFlix.selectMovieDialog(this.seasonMap.get(seasonList.get(choice)));
-               break;
-       }
-    }
+
 
 }

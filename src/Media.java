@@ -59,48 +59,6 @@ abstract public class Media implements IMedia {
         return "title='" + title + '\'';
     }
 
-    public void display() {
-        //this.mediaDialog();
-    }
-
-    public void mediaDialog(User currentUser) {
-        ArrayList<String> actions = new ArrayList<>();
-        actions.add("Afspil Film");
-        actions.add("Tilføj til favoritter");
-        if(currentUser.isFavorite(this)) {
-            actions.add("fjern fra favoritter");
-        }else{
-            currentUser.addFavorite(this);
-        }
-
-
-        actions.add("Tilbage");
-
-
-        int choice = 0;
-        while (choice < 3) {
-            ui.displayMsg("Du har valgt: " + this.getTitle());
-            choice = ui.promptChoice(actions, "");
-            switch (choice) {
-                case 1:
-                    this.play();
-                    currentUser.addHistory(this);
-                    break;
-                case 2:
-                    if(currentUser.isFavorite(this)) {
-                        currentUser.removeFavorite(this);
-                    } else {
-                        currentUser.addFavorite(this);
-                    }
-                    break;
-                case 3:
-                    currentUser.removeFavorite(this);
-                    break;
-
-
-            }
-        }
-    }
 
     @Override
     public void play() {
