@@ -5,18 +5,18 @@ import java.util.*;
 public class User {
 
 
-    private String userName;
+    private final String userName;
     private String userPassword;
-    private Map<String, Media> favorites;
-    private Map<String, Media> history;
+    private final Map<String, Media> favorites;
+    private final Map<String, Media> history;
 
     TextUI ui = new TextUI();
 
     public User(String name, String password) {
         this.userName = name;
         this.userPassword = password;
-        this.favorites = new LinkedHashMap<String, Media>();
-        this.history = new LinkedHashMap<String, Media>();
+        this.favorites = new LinkedHashMap<>();
+        this.history = new LinkedHashMap<>();
     }
 
 

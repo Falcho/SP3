@@ -1,6 +1,4 @@
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class Serie extends Media {
     Map<String, Map<String, Media>> seasonMap;
@@ -9,7 +7,7 @@ public class Serie extends Media {
 
     Serie(String title, int releaseYear, String genre, float rating) {
         super(title, releaseYear, genre, rating);
-        this.seasonMap = new TreeMap<String, Map<String, Media>>();
+        this.seasonMap = new TreeMap<>();
     }
     public Map<String, Map<String, Media>> getSeasonMap() {
         return seasonMap;
