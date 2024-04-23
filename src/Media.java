@@ -65,6 +65,7 @@ abstract public class Media implements IMedia{
         actions.add("Fjern fra favoritter");
         actions.add("Tilbage");
 
+
         int choice = 0;
         while (choice < 3) {
             ui.displayMsg("Du har valgt: " + this.getTitle());
@@ -75,7 +76,11 @@ abstract public class Media implements IMedia{
                     currentUser.addHistory(this);
                     break;
                 case 2:
-                    currentUser.addFavorite(this);
+                    if(currentUser.isFavorite(this)) {
+                        currentUser.removeFavorite(this);
+                    } else {
+                        currentUser.addFavorite(this);
+                    }
                     break;
                 case 3:
                     currentUser.removeFavorite(this);
