@@ -62,7 +62,13 @@ abstract public class Media implements IMedia{
         ArrayList<String> actions = new ArrayList<>();
         actions.add("Afspil Film");
         actions.add("Tilføj til favoritter");
-        actions.add("Fjern fra favoritter");
+        if(currentUser.isFavorite(this)) {
+            actions.add("fjern fra favoritter");
+        }else{
+            currentUser.addFavorite(this);
+        }
+
+
         actions.add("Tilbage");
 
 
