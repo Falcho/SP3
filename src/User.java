@@ -100,7 +100,17 @@ public class User {
 
     @Override
     public String toString() {
-        return userName + '\t' + userPassword + '\t' + favorites + '\t' + history;
+        StringBuilder sb = new StringBuilder(userName+'\t'+userPassword+'\t');
+        sb.append("[");
+        for(String movie: favorites.keySet()) {
+            sb.append(movie).append(";");
+        }
+        sb.append("]").append('\t').append("[");
+        for(String movie: history.keySet()) {
+            sb.append(movie).append(";");
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
 
