@@ -6,15 +6,15 @@ import java.util.*;
 import static java.lang.System.exit;
 
 public class ChillFlix {
-    TextUI ui;
+    private final TextUI ui;
     private final FileIO io;
     private final String userPath;
     private final String moviePath;
     private final String seriePath;
-    Map<String, Media> mediaList;
-    Map<String, User> userList;
-    Map<String, Map<String, Media>> genreMap;
-    User currentUser;
+    private final Map<String, Media> mediaList;
+    private final Map<String, User> userList;
+    private final Map<String, Map<String, Media>> genreMap;
+    private User currentUser;
 
 
     ChillFlix(String userPath, String moviePath, String seriePath) {
