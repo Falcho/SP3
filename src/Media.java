@@ -6,16 +6,11 @@ abstract public class Media implements IMedia {
     private final String genre;
     private float rating;
 
-    TextUI ui = new TextUI();
-
-
-
     Media(String title, int releaseYear, String genre, float rating) {
         this.title = title;
         this.releaseYear = releaseYear;
         this.genre = genre;
         this.rating = rating;
-
     }
 
     public String getTitle() {
@@ -33,9 +28,9 @@ abstract public class Media implements IMedia {
 
     @Override
     public void play() {
-        ui.displayMsg("--------------------");
-        ui.displayMsg("Afspiller nu " + this.getTitle());
-        ui.displayMsg("--------------------");
+        System.out.println("--------------------");
+        System.out.println("Afspiller nu " + this.getTitle());
+        System.out.println("--------------------");
     }
     @Override
     public void playPrevious() {
