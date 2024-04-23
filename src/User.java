@@ -10,61 +10,69 @@ public class User {
     private Map<String, Media> favorites;
     private Map<String, Media> history;
 
-TextUI ui= new TextUI();
+    TextUI ui = new TextUI();
 
-    public User(String name,String password){
-        this.userName= name;
+    public User(String name, String password) {
+        this.userName = name;
         this.userPassword = password;
-        this.favorites= new LinkedHashMap<String, Media>();
-        this.history= new LinkedHashMap<String, Media>();
+        this.favorites = new LinkedHashMap<String, Media>();
+        this.history = new LinkedHashMap<String, Media>();
     }
 
 
-    public boolean checkPassword(String pwd){
+    public boolean checkPassword(String pwd) {
         return this.getPassword().equals(pwd);
     }
 
-    public void resetPassword(){
+    public void resetPassword() {
         System.out.println("resetPassword()");
     }
 
-    public void changePassword(){
+    public void changePassword() {
         System.out.println("changePassword()");
     }
-    public void changeUserName(){
+
+    public void changeUserName() {
         System.out.println("changeUserName()");
     }
-    public void displayFavorites(){
+
+    public void displayFavorites() {
         System.out.println("displayFavorites()");
     }
-    public void displayHistory(){
+
+    public void displayHistory() {
         System.out.println("displayHistory()");
     }
 
-    public void addFavorite(Media media){
+    public void addFavorite(Media media) {
         favorites.put(media.getTitle(), media);
-        ui.displayMsg(media.getTitle() +" tilføjet til dine favoritter");
+        ui.displayMsg(media.getTitle() + " tilføjet til dine favoritter");
     }
-    public void removeFavorite(Media media){
+
+    public void removeFavorite(Media media) {
         favorites.remove(media);
     }
-    public boolean isFavorite(Media media){
-        if(!favorites.containsKey(media)){
+
+    public boolean isFavorite(Media media) {
+        if (!favorites.containsKey(media)) {
             return false;
         }
         return true;
     }
 
-    public void addHistory(Media media){
-        System.out.println("addHistory()");
-    }
-    public void resetHistory(){
-        System.out.println("resetHistory()");
+    public void addHistory(Media media) {
+        history.put(media.getTitle(), media);
+        ui.displayMsg(media.getTitle() + " tilføjet til din historik");
     }
 
-    public void showSettings(){
+    public void resetHistory() {
+        history.clear();
+    }
+
+    public void showSettings() {
         System.out.println("showSettings()");
     }
+
     public Map<String, Media> getFavorites() {
         return favorites;
     }
@@ -92,10 +100,8 @@ TextUI ui= new TextUI();
 
     @Override
     public String toString() {
-        return  userName + '\t' + userPassword + '\t'  + favorites + '\t'  + history ;
+        return userName + '\t' + userPassword + '\t' + favorites + '\t' + history;
     }
-
-
 
 
 }
