@@ -330,6 +330,7 @@ public class ChillFlix {
                 episodeTitle.append("E").append(i<10 ? "0" : "").append(i);
                 Episode ep = new Episode(episodeTitle.toString(), startYear, genre, rating, 0);
                 serie.getSeasonMap().get(title + " sæson " + seasonNumber).put(ep.getTitle(), ep);
+                mediaList.put(ep.getTitle(), ep);
             }
         }
         return serie;
