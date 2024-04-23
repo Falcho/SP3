@@ -40,6 +40,7 @@ public class TextUI {
                 if (parsedInt > 0 && parsedInt <= maxValue) {
                     return parsedInt;
                 }
+                displayMsg("Ugyldigt valg.");
             } catch (NumberFormatException e) {
                 System.out.println("input skal være et tal. Prøv igen.");
             }
