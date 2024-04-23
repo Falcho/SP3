@@ -165,8 +165,12 @@ public class ChillFlix {
 
     public void selectGenreDialog() {
         List<String> genreList = new ArrayList<>(genreMap.keySet());
-        int choice = ui.promptChoice(genreList, "Vælg en genre fra listen");
-        selectMovieDialog(genreMap.get(genreList.get(choice - 1)));
+        if (genreList.size()>0) {
+            int choice = ui.promptChoice(genreList, "Vælg en genre fra listen");
+            selectMovieDialog(genreMap.get(genreList.get(choice - 1)));
+        } else {
+            ui.displayMsg("Der er ingen genredata i systemet.");
+        }
     }
 
 
