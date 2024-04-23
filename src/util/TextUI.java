@@ -9,7 +9,7 @@ public class TextUI {
     private final Scanner scan = new Scanner(System.in);
 
     public void displayMsg(String msg) {
-        System.out.println(msg);
+        if (!msg.isEmpty()) System.out.println(msg);
     }
 
     public void displayList(List<String> list) {
@@ -40,9 +40,9 @@ public class TextUI {
                 if (parsedInt > 0 && parsedInt <= maxValue) {
                     return parsedInt;
                 }
-                displayMsg("Ugyldigt valg.");
+                displayMsg("Ugyldigt valg. Prøv igen.");
             } catch (NumberFormatException e) {
-                System.out.println("input skal være et tal. Prøv igen.");
+                System.out.println("Input skal være et tal. Prøv igen.");
             }
         }
         return promptNumeric(s, maxValue);
