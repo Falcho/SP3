@@ -170,13 +170,15 @@ public class ChillFlix {
 
 
     public void selectMovieDialog(Map<String, Media> mediaMap) {
-        List<String> titleList = new ArrayList(mediaMap.keySet());
-        int choice = ui.promptChoice(titleList,"Vælg fra listen");
-        Media chosenMedia = mediaMap.get(titleList.get(choice - 1));
-        if (chosenMedia instanceof Serie) {
-            this.serieDialog(chosenMedia);
-        } else {
-            this.mediaDialog(chosenMedia);
+        if (!mediaMap.isEmpty() && mediaMap!=null) {
+            List<String> titleList = new ArrayList(mediaMap.keySet());
+            int choice = ui.promptChoice(titleList, "Vælg fra listen");
+            Media chosenMedia = mediaMap.get(titleList.get(choice - 1));
+            if (chosenMedia instanceof Serie) {
+                this.serieDialog(chosenMedia);
+            } else {
+                this.mediaDialog(chosenMedia);
+            }
         }
     }
 
@@ -190,10 +192,11 @@ public class ChillFlix {
             actions.add("Tilføj til favoritter");
         }
         actions.addAll(seasonList);
-        //actions.add("Tilbage");
+        actions.add("Tilbage");
+
 
         int choice = 0;
-        while (choice < actions.size()) {
+        while (choice < actions.size()-1) {
             //ui.displayMsg("Du har valgt: " + media.getTitle());
             choice = ui.promptChoice(actions, "");
             switch (choice) {
@@ -212,7 +215,9 @@ public class ChillFlix {
                     break;
                 default:
                     //selectMovieDialog(((Serie) media).getSeasonMap().getOrDefault(seasonList.get(choice-2), "Sæson 1"));
-                    selectMovieDialog(((Serie) media).getSeasonMap().get(seasonList.get(choice-2)));
+                    if (choice-3<seasonList.size()) {
+                        selectMovieDialog(((Serie) media).getSeasonMap().get(seasonList.get(choice - 3)));
+                    }
             }
         }
     }
@@ -247,6 +252,20 @@ public class ChillFlix {
                     this.saveUserData();
                     break;
             }
+        }
+    }
+
+    public void searchDialog() {
+        String searchWord = ui.promptText("Søg efter en titel").toLowerCase();
+        List<String> resultList = mediaList.keySet().stream().filter((title) -> title.toLowerCase().contains(searchWord)).toList();
+        if (resultList.isEmpty()) {
+            ui.displayMsg("Din søgning gav ingen resultater");
+        } else {
+            Map<String, Media> resultMap = new TreeMap<>();
+            for (String title : resultList) {
+                resultMap.put(title, mediaList.get(title));
+            }
+            selectMovieDialog(resultMap);
         }
     }
 
@@ -343,21 +362,6 @@ public class ChillFlix {
         float rating = Float.parseFloat(movieData[3].replace(",", ".").trim());
         Movie movie = new Movie(title, releaseYear, genre, rating, 0);
         return movie;
-    }
-
-
-    public void searchDialog() {
-        String searchWord = ui.promptText("Søg efter en titel").toLowerCase();
-        List<String> resultList = mediaList.keySet().stream().filter((title) -> title.toLowerCase().contains(searchWord)).toList();
-        if (resultList.isEmpty()) {
-            ui.displayMsg("Din søgning gav ingen resultater");
-        } else {
-            Map<String, Media> resultMap = new TreeMap<>();
-            for (String title : resultList) {
-                resultMap.put(title, mediaList.get(title));
-            }
-            selectMovieDialog(resultMap);
-        }
     }
 
     @Override
