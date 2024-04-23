@@ -7,10 +7,10 @@ import static java.lang.System.exit;
 
 public class ChillFlix {
     TextUI ui;
-    private FileIO io;
-    private String userPath;
-    private String moviePath;
-    private String seriePath;
+    private final FileIO io;
+    private final String userPath;
+    private final String moviePath;
+    private final String seriePath;
     Map<String, Media> mediaList;
     Map<String, User> userList;
     Map<String, Map<String, Media>> genreMap;
@@ -40,7 +40,7 @@ public class ChillFlix {
         }
     }
     private void saveUserData() {
-        io.saveData("username\tpassword\t[favorites]\t[history]", new ArrayList<Object>(userList.values()), userPath);
+        io.saveData("username\tpassword\t[favorites]\t[history]", new ArrayList<>(userList.values()), userPath);
     }
 
 
@@ -64,9 +64,6 @@ public class ChillFlix {
                 case 3:
                     ui.displayMsg("Luk");
                     exit(0);
-                    break;
-                case 4:
-                    loggedln = false;
                     break;
 
             }
@@ -165,7 +162,7 @@ public class ChillFlix {
 
     public void selectGenreDialog() {
         List<String> genreList = new ArrayList<>(genreMap.keySet());
-        if (genreList.size()>0) {
+        if (!genreList.isEmpty()) {
             int choice = ui.promptChoice(genreList, "Vælg en genre fra listen");
             selectMovieDialog(genreMap.get(genreList.get(choice - 1)));
         } else {
@@ -175,8 +172,8 @@ public class ChillFlix {
 
 
     public void selectMovieDialog(Map<String, Media> mediaMap) {
-        if (!mediaMap.isEmpty() && mediaMap!=null) {
-            List<String> titleList = new ArrayList(mediaMap.keySet());
+        if (!mediaMap.isEmpty()) {
+            List<String> titleList = new ArrayList<>(mediaMap.keySet());
             //Få antal elementer i listen
             //TODO Tilføj "Tilbage" til listen
             int choice = ui.promptChoice(titleList, "Vælg fra listen");
@@ -321,7 +318,7 @@ public class ChillFlix {
         ArrayList<String> genreList = new ArrayList<>(List.of(movie.getGenre().split(",")));
         for (String genre : genreList) {
             if (!genreMap.containsKey(genre.trim())) {
-                genreMap.put(genre.trim(), new TreeMap<String, Media>());
+                genreMap.put(genre.trim(), new TreeMap<>());
             }
             genreMap.get(genre.trim()).put(movie.getTitle(), movie);
 
@@ -347,7 +344,7 @@ public class ChillFlix {
             int episodesInSeason = Integer.parseInt(seasonEpisode.split("-")[1].trim());
             StringBuilder seasonTitle = new StringBuilder(title + " sæson ");
             seasonTitle.append((numberOfSeasons>10 && seasonNumber<10) ? "0" : "").append(seasonNumber);
-            serie.getSeasonMap().put(seasonTitle.toString(), new TreeMap<String, Media>());
+            serie.getSeasonMap().put(seasonTitle.toString(), new TreeMap<>());
             for (int i = 1; i <= episodesInSeason; i++) {
                 StringBuilder episodeTitle = new StringBuilder(title);
                 episodeTitle.append(" S").append(seasonNumber<10 ? "0" : "").append(seasonNumber);
@@ -366,8 +363,7 @@ public class ChillFlix {
         int releaseYear = Integer.parseInt(movieData[1].trim());
         String genre = movieData[2].trim();
         float rating = Float.parseFloat(movieData[3].replace(",", ".").trim());
-        Movie movie = new Movie(title, releaseYear, genre, rating, 0);
-        return movie;
+        return new Movie(title, releaseYear, genre, rating, 0);
     }
 
     @Override

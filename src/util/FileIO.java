@@ -29,7 +29,7 @@ public class FileIO {
         return dataList;
     }
 
-    public static void saveData(String header,ArrayList<Object> dataList, String path) {
+    public void saveData(String header,ArrayList<Object> dataList, String path) {
         try {
             FileWriter writer = new FileWriter(path);
             writer.write(header+"\n");
