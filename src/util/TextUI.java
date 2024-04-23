@@ -13,7 +13,7 @@ public class TextUI {
     }
 
     public void displayList(List<String> list) {
-        int n=1;
+        int n = 1;
         for (String s : list) {
             System.out.println(n++ + ") " + s);
         }
@@ -56,6 +56,9 @@ public class TextUI {
 
     public int promptChoice(List<String> inputList, String s) {
         displayList(inputList);
+        if (inputList.isEmpty()) {
+            return 0;
+        }
         int maxValue = inputList.size();
         int input = promptNumeric(s, maxValue);
         return input;
