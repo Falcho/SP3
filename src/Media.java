@@ -67,8 +67,15 @@ abstract public class Media implements IMedia {
         ArrayList<String> actions = new ArrayList<>();
         actions.add("Afspil Film");
         actions.add("Tilføj til favoritter");
-        actions.add("Fjern fra favoritter");
+        if(currentUser.isFavorite(this)) {
+            actions.add("fjern fra favoritter");
+        }else{
+            currentUser.addFavorite(this);
+        }
+
+
         actions.add("Tilbage");
+
 
         int choice = 0;
         while (choice < 3) {
@@ -80,7 +87,11 @@ abstract public class Media implements IMedia {
                     currentUser.addHistory(this);
                     break;
                 case 2:
-                    currentUser.addFavorite(this);
+                    if(currentUser.isFavorite(this)) {
+                        currentUser.removeFavorite(this);
+                    } else {
+                        currentUser.addFavorite(this);
+                    }
                     break;
                 case 3:
                     currentUser.removeFavorite(this);
