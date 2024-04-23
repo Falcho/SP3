@@ -197,7 +197,7 @@ public class ChillFlix {
 
         int choice = 0;
         while (choice < actions.size()-1) {
-            //ui.displayMsg("Du har valgt: " + media.getTitle());
+            ui.displayMsg("Du har valgt: " + media.getTitle());
             choice = ui.promptChoice(actions, "");
             switch (choice) {
                 case 1:
@@ -206,11 +206,7 @@ public class ChillFlix {
                     this.saveUserData();
                     break;
                 case 2:
-                    if(currentUser.isFavorite(media)) {
-                        currentUser.removeFavorite(media);
-                    } else {
-                        currentUser.addFavorite(media);
-                    }
+                   currentUser.toggleFavorite(media);
                     this.saveUserData();
                     break;
                 default:
@@ -243,12 +239,7 @@ public class ChillFlix {
                     this.saveUserData();
                     break;
                 case 2:
-                    if(currentUser.isFavorite(media)) {
-                        currentUser.removeFavorite(media);
-                    } else {
-                        currentUser.addFavorite(media);
-                        ui.displayMsg(media.getTitle() + " tilføjet til dine favoritter");
-                    }
+                    currentUser.toggleFavorite(media);
                     this.saveUserData();
                     break;
             }

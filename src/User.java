@@ -37,14 +37,20 @@ public class User {
     }
 
     public void removeFavorite(Media media) {
-        favorites.remove(media);
+        favorites.remove(media.getTitle());
+    }
+    public void toggleFavorite(Media media) {
+        if (isFavorite(media)) {
+            ui.displayMsg(media.getTitle() + " er fjernet fra favoritlisten");
+            removeFavorite(media);
+        } else {
+            addFavorite(media);
+            ui.displayMsg(media.getTitle() + " er tilføjet til favoritlisten");
+        }
     }
 
     public boolean isFavorite(Media media) {
-        if (!favorites.containsKey(media)) {
-            return false;
-        }
-        return true;
+        return favorites.containsKey(media.getTitle());
     }
 
     public void addHistory(Media media) {
