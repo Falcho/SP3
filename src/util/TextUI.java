@@ -13,7 +13,7 @@ public class TextUI {
     }
 
     public void displayList(List<String> list) {
-        int n=1;
+        int n = 1;
         for (String s : list) {
             System.out.println(n++ + ") " + s);
         }
@@ -33,11 +33,15 @@ public class TextUI {
 
     public int promptNumeric(String s, int maxValue) {
         displayMsg(s);
-        if (scan.hasNextInt()) {
+        if (scan.hasNext()) {
             String input = scan.nextLine();
-            int parsedInt = Integer.parseInt(input);
-            if (parsedInt > 0 && parsedInt <= maxValue) {
-                return parsedInt;
+            try {
+                int parsedInt = Integer.parseInt(input);
+                if (parsedInt > 0 && parsedInt <= maxValue) {
+                    return parsedInt;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("input skal være et tal. Prøv igen.");
             }
         }
         return promptNumeric(s, maxValue);
