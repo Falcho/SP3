@@ -1,7 +1,5 @@
 package util;
 
-
-import javax.print.attribute.standard.Media;
 import java.util.*;
 
 public class TextUI {
@@ -19,16 +17,9 @@ public class TextUI {
         }
     }
 
-    public void displayMedia(Map<String, Media> mediaList, int start) {
-        for (String s : mediaList.keySet()) {
-            System.out.println(s);
-        }
-    }
-
     public String promptText(String s) {
         displayMsg(s);
-        String input = scan.nextLine();
-        return input;
+        return scan.nextLine();
     }
 
     public int promptNumeric(String s, int maxValue) {
@@ -65,8 +56,7 @@ public class TextUI {
             return 0;
         }
         int maxValue = inputList.size();
-        int input = promptNumeric(s, maxValue);
-        return input;
+        return promptNumeric(s, maxValue);
     }
 
     @Override
@@ -82,48 +72,3 @@ public class TextUI {
         return Objects.hash(scan);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-
-    public int promptNumeric(String msg){
-        String input = promptText(msg);         //Give brugere et sted at placere sit svar og vente pÃ¥ svaret
-        int number = Integer.parseInt(input);       //Konvertere svaret til et tal
-        return number;
-    }
-    public int promptChoice(ArrayList<String> optionslist, String msg){//["Gin&Tonic", "Beer","Vine" ]
-        displayMsg(msg);
-        displayList(optionslist, "");
-        int input = promptNumeric("");//1
-        //  return optionslist.get(input-1);
-        return input;
-
-    }
-
-    */
