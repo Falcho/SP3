@@ -108,20 +108,20 @@ public class ChillFlix {
                         ui.displayMsg("-----------------");
                         ui.displayMsg("Favoritlisten er tom");
                         ui.displayMsg("-----------------");
-                        mainDialog();
-                    }
+                    } else {
                         ui.displayMsg("Din favoritliste");
                         this.selectMovieDialog(currentUser.getFavorites());
+                    }
                     break;
                 case 3:
                     if(currentUser.getHistory().isEmpty()) {
                         ui.displayMsg("-----------------");
                         ui.displayMsg("Historik er tom");
                         ui.displayMsg("-----------------");
-                        mainDialog();
-                    }
+                    } else {
                         ui.displayMsg("Din historik");
                         this.selectMovieDialog(currentUser.getHistory());
+                    }
                     break;
                 case 4:
                     ui.displayMsg("Søg efter titel");
