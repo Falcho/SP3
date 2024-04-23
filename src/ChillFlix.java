@@ -263,7 +263,9 @@ public class ChillFlix {
         } else {
             Map<String, Media> resultMap = new TreeMap<>();
             for (String title : resultList) {
-                resultMap.put(title, mediaList.get(title));
+                if (!(mediaList.get(title) instanceof Episode)) {
+                    resultMap.put(title, mediaList.get(title));
+                }
             }
             selectMovieDialog(resultMap);
         }
@@ -337,17 +339,19 @@ public class ChillFlix {
         String seasonEpisodeString = serieData[4].trim();
         String[] seasonEpisodeList = seasonEpisodeString.split(",");
         Serie serie = new Serie(title, startYear, genre, rating);
-
+        int numberOfSeasons = seasonEpisodeList.length;
         for (String seasonEpisode : seasonEpisodeList) {
             int seasonNumber = Integer.parseInt(seasonEpisode.split("-")[0].trim());
             int episodesInSeason = Integer.parseInt(seasonEpisode.split("-")[1].trim());
-            serie.getSeasonMap().put(title + " sæson " + seasonNumber, new TreeMap<String, Media>());
+            StringBuilder seasonTitle = new StringBuilder(title + " sæson ");
+            seasonTitle.append((numberOfSeasons>10 && seasonNumber<10) ? "0" : "").append(seasonNumber);
+            serie.getSeasonMap().put(seasonTitle.toString(), new TreeMap<String, Media>());
             for (int i = 1; i <= episodesInSeason; i++) {
                 StringBuilder episodeTitle = new StringBuilder(title);
                 episodeTitle.append(" S").append(seasonNumber<10 ? "0" : "").append(seasonNumber);
                 episodeTitle.append("E").append(i<10 ? "0" : "").append(i);
                 Episode ep = new Episode(episodeTitle.toString(), startYear, genre, rating, 0);
-                serie.getSeasonMap().get(title + " sæson " + seasonNumber).put(ep.getTitle(), ep);
+                serie.getSeasonMap().get(seasonTitle.toString()).put(ep.getTitle(), ep);
                 mediaList.put(ep.getTitle(), ep);
             }
         }
