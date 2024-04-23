@@ -49,13 +49,13 @@ public class ChillFlix {
         actions.add("Log ind");
         actions.add("Opret bruger");
         actions.add("Luk");
-        boolean loggedln = false;
-        while (!loggedln) {
+        boolean loggedIn = false;
+        while (!loggedIn) {
             int choice = ui.promptChoice(actions, "Vælg en handling");
             switch (choice) {
                 case 1:
                     ui.displayMsg("Log ind");
-                    loggedln=loginDialog();
+                    loggedIn=loginDialog();
                     break;
                 case 2:
                     ui.displayMsg("Opret Bruger");
@@ -67,14 +67,14 @@ public class ChillFlix {
                     break;
 
             }
-            if (loggedln) this.mainDialog();
+            if (loggedIn) this.mainDialog();
         }
     }
 
     public void mainDialog() {
         ArrayList<String> list = new ArrayList<>();
-        list.add("Vis katagori");
-        list.add("Vis farvoritliste");
+        list.add("Vis kategori");
+        list.add("Vis favoritliste");
         list.add("Vis historik");
         list.add("Søg efter titel");
         list.add("Settings");
