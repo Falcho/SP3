@@ -32,21 +32,8 @@ public class User {
         System.out.println("changePassword()");
     }
 
-    public void changeUserName() {
-        System.out.println("changeUserName()");
-    }
-
-    public void displayFavorites() {
-        System.out.println("displayFavorites()");
-    }
-
-    public void displayHistory() {
-        System.out.println("displayHistory()");
-    }
-
     public void addFavorite(Media media) {
         favorites.put(media.getTitle(), media);
-        ui.displayMsg(media.getTitle() + " tilføjet til dine favoritter");
     }
 
     public void removeFavorite(Media media) {
@@ -62,16 +49,12 @@ public class User {
 
     public void addHistory(Media media) {
         history.put(media.getTitle(), media);
-        ui.displayMsg(media.getTitle() + " tilføjet til din historik");
     }
 
     public void resetHistory() {
         history.clear();
     }
 
-    public void showSettings() {
-        System.out.println("showSettings()");
-    }
 
     public Map<String, Media> getFavorites() {
         return favorites;
