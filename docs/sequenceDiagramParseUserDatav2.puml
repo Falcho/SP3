@@ -1,0 +1,42 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+title parseUserData()
+ChillFlix -> FileIO: userDataList = io.readData()
+alt !fileExists
+FileIO -> FileIO: saveData()
+end
+FileIO --> ChillFlix
+
+loop userData : userDataList
+ChillFlix -> String: userData.split()
+String --> ChillFlix
+ChillFlix -> String: userName.trim()
+String --> ChillFlix
+ChillFlix -> String: userPassword.trim()
+String --> ChillFlix
+ChillFlix -> String: favorites.replace().trim()
+String --> ChillFlix
+ChillFlix -> String: history.replace().trim()
+String --> ChillFlix
+
+ChillFlix -> User: new User(userName, userPassword)
+User --> ChillFlix
+alt !favorites.empty()
+loop movieTitle: favorites
+ChillFlix -> User: addFavorite(movieTitle)
+User --> ChillFlix
+end
+end
+alt hasHistoryInDatafile
+loop movieTitle : history
+ChillFlix -> User: addHistory(movieTitle)
+User --> ChillFlix
+end
+end
+ChillFlix -> ChillFlix: userList.put()
+
+end
+
+@enduml
