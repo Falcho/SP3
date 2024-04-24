@@ -3,10 +3,10 @@
 title createUserDialog(String username)
 
 participant ChillFlix
-participant UI
+participant TextUI as UI
 participant User
 
-autonumber
+
 
 alt if (username == null)
     ChillFlix -> UI: usernameInput = prompText(msg)
@@ -27,9 +27,10 @@ alt if (username == null)
         UI --> ChillFlix: "Kodeordene skal være ens"
         ChillFlix -> ChillFlix: createUserDialog(usernameInput)
     else else
-    ChillFlix -> User: new(usernameInput, passwordInput)
+    ChillFlix -> User: new User(usernameInput, passwordInput)
     ChillFlix -> ChillFlix: userList.put(usernameInput, user)
-    ChillFlix -> ChillFlix: saveUserData()
+    ChillFlix -> FileIO: saveUserData()
+    FileIO --> ChillFlix
     ChillFlix -> UI: displayMsg(msg)
     UI --> ChillFlix: "Bruger oprettet"
     end
