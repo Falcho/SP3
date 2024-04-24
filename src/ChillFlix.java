@@ -213,8 +213,8 @@ public class ChillFlix {
                     this.saveUserData();
                     break;
                 case 2:
-                   currentUser.toggleFavorite(media);
-                   //TODO Fix tilføj/fjern dialog
+                    boolean toggle = currentUser.toggleFavorite(media);
+                    actions.set(1, (toggle ? "Fjern fra" : "Tilføj til") + " favoritter");
                     this.saveUserData();
                     break;
                 default:
