@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title mainDialog();
+
+participant ChillFlix
+participant UI
+
+autonumber
+
+loop
+    ChillFlix -> UI: ui.promptChoice(list, "Vælg en handling")
+    alt
+        group case 1: Vis Kategori
+            ChillFlix -> UI: displayMsg(msg)
+            UI --> ChillFlix: "Kategorier"
+            ChillFlix -> ChillFlix: selectGenreDialog
+        end
+
+        group case 2: Vis favoritliste
+            group if currentUser.getFavorites().isEmpty()
+                ChillFlix -> UI: displayMsg(msg)
+                UI --> ChillFlix: "Favoritlisten er tom"
+            else !isEmpty
+                ChillFlix -> UI: displayMsg(msg)
+                UI --> ChillFlix: "Din favoritliste"
+                ChillFlix -> ChillFlix: selectMovieDialog(currentUser.getFavorites());
+            end
+        end
+
+        group case 3: Vis historik
+            group if currentUser.getHistory().isEmpty()
+                ChillFlix -> UI: displayMsg(msg)
+                UI --> ChillFlix: "Historik er tom"
+            else !isEmpty
+                ChillFlix -> UI: displayMsg(msg)
+                UI --> ChillFlix: "Din historik"
+                ChillFlix -> ChillFlix: selectMovieDialog(currentUser.getHistory())
+            end
+        end
+
+        group case 4: Søg efter titel
+            ChillFlix -> UI: displayMsg(msg)
+            UI --> ChillFlix: "Søg efter titel"
+            ChillFlix -> ChillFlix: searchDialog();
+        end
+
+        group case 5: Settings
+            ChillFlix -> UI: displayMsg(msg)
+            UI --> ChillFlix: "Indstillinger"
+        end
+
+        group case 6: Log ud
+        end
+    end
+end
+
+@enduml
