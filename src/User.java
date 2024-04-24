@@ -5,18 +5,18 @@ import java.util.*;
 public class User {
 
 
-    private String userName;
+    private final String userName;
     private String userPassword;
-    private Map<String, Media> favorites;
-    private Map<String, Media> history;
+    private final Map<String, Media> favorites;
+    private final Map<String, Media> history;
 
     TextUI ui = new TextUI();
 
     public User(String name, String password) {
         this.userName = name;
         this.userPassword = password;
-        this.favorites = new LinkedHashMap<String, Media>();
-        this.history = new LinkedHashMap<String, Media>();
+        this.favorites = new LinkedHashMap<>();
+        this.history = new LinkedHashMap<>();
     }
 
 
@@ -39,13 +39,15 @@ public class User {
     public void removeFavorite(Media media) {
         favorites.remove(media.getTitle());
     }
-    public void toggleFavorite(Media media) {
+    public boolean toggleFavorite(Media media) {
         if (isFavorite(media)) {
             ui.displayMsg(media.getTitle() + " er fjernet fra favoritlisten");
             removeFavorite(media);
+            return false;
         } else {
             addFavorite(media);
             ui.displayMsg(media.getTitle() + " er tilføjet til favoritlisten");
+            return true;
         }
     }
 
