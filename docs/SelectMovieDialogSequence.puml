@@ -5,7 +5,24 @@ autonumber
 
 participant ChillFlix
 participant UI
+participant Media
+participant Serie
 
-ChillFlix -> ChillFlix :SelectMovieDialog();
-loop
+ChillFlix -> UI: promptChoice(titleList,"Vælg fra listen")
+activate UI
+UI -> ChillFlix: choice
+deactivate UI
+
+ChillFlix -> Media: mediaMap.get(titleList.get(choice - 1))
+activate Media
+Media <-- ChillFlix: chosenMedia
+deactivate Media
+
+alt Chosen media is a Serie
+    ChillFlix -> Serie: serieDialog(chosenMedia)
+    activate Serie
+    deactivate Serie
+else Chosen media is not a Serie
+    ChillFlix -> ChillFlix: mediaDialog(chosenMedia)
+
 @enduml
