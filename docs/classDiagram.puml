@@ -10,111 +10,132 @@ Class ChillFlix{
 -TextUI ui
 -FileIO io
 -String userPath
--String mediaPath
--HashMap<String, User> userList
--TreeMap<String, Media> mediaList
+-String moviePath
+-String seriePath
+-Map<String, Media> mediaList
+-Map<String, User> userList
 -User currentUser
-+ChillFlix(String userPath, String mediaPath);
-+boolean createUser();
-+boolean loginDialog();
-+deleteUser();
-+checkIfUserExists();
-+createUserDialog(String username);
-+search();
-+parseMovieData()
-+createMovieFromString
-+searchDialog()
-+addGenre(Media media));
++ChillFlix(String userPath, String mediaPath,String seriePath);
++boolean checkIfUserExists(String username);
++void saverUserData();
++void startsDialog();
++void mainDialog();
++boolean loginDialog
++boolean createUserDialog(String username);
++void selectGenreDialog();
++void selectMovieDialog();
++void serieDialog();
++void mediaDialog();
++void searchDialog();
++void parseUserData();
++void parseSerieData();
++void parseMovieData();
++void addGenre(Media movie);
++Serie createSerieFromString(String serieString);
++Movie createMovieFromString(String movieString);
++boolean equals(object o);
++int hashCode();
 }
 
 
 Class User{
 -String userName
 -String userPassword
--LinkedHashMap<String, Media> favorites
--LinkedHashMap<String, Media> history
+-Map<String, Media> favorites
+-Map<String, Media> history
 +User(String name, String password);
-+userLogin();
-+checkPassword(String pwd);
-+resetPassword();
-+changePassword();
-+changeUserName();
-+displayFavorites();
-+displayHistory();
-+addFavorite();
-+isFavorite(Media media);
-+removeFavorite();
-+addHistory();
-+resetHistory();
-+showSettings();
-+equals()
-+hashCode()
++boolean checkPassword(String pwd);
++void resetPassword();
++void changePassword();
++void addFavorite(Media media);
++void removeFavorite(Media media);
++void toggleFavorite(Media media);
++boolean isFavorite(Media media);
++void addHistory(Media media);
++void resetHistory();
++Map<String, Media> getFavorites();
++Map<String, Media> getHistory()
++String getPassword()
++boolean equals()
++int hashCode()
++String toString
 }
 
 Interface IMedia{
-+play();
-+stop();
-+pause();
-+restart();
-+skipIntro();
-+playPrevious();
-+playNext();
++void play();
++void stop();
++void pause();
++void restart();
++void skipIntro();
++void playPrevious();
++void playNext();
 }
 abstract Class Media{
 -String title
 -int releaseYear
 -String genre
 -float rating
-+getTitle();
++Media(String title, int releaseYear, String genre, float rating)
++String getTitle();
++void setTitle(String title);
 +getReleaseYear();
-+getGenre();
-+getRating();
-+setTitle();
-+setReleaseYear();
-+setGenre();
-+setRating();
-+equals()
-+hashCode()
-+compareTo()
++setReleaseYear(int releaseYear);
++String getGenre();
++void setGenre(String genre);
++float getRating();
++void setRating(float rating);
++String toString();
++void play();
++void stop();
++void pause();
++void restart();
++void skipIntro()
++void playPrevious
++void playNext
 }
 
-Class Film {
+Class Movie {
 -int duration
++Movie(String title, int releaseYear, String genre, float rating, int duration);
++boolean equals(object o);
 }
 
 Class Serie{
--TreeMap<String,List<Media>> episodeMap
+-Map<String,Map<String,Media>> seasonMap
++Serie(String title, int releaseYear, String genre, float rating);
++Map<String, Map<String, Media>> getSeasonMap();
++void playPrevious();
++ void playNext();
 }
 
 
 Class Episode{
--int episodeNumber
--Media previousEpisode
--Media nextEpisode
++Episode(String title, int releaseYear, String genre, float rating, int duration);
 }
 package util {
     Class FileIO{
-    -Scanner scan
-    +ArrayList<> scanFile();
-    +readUserData();
-    +readMediaData();
-    +saveData(String header,ArrayList<Object> dataList, String path);
+    +ArrayList<String> readData(String path);
+    +void saveData(String header,ArrayList<Object> dataList, String path)
     }
 
+
     Class TextUI{
-    -Scanner scan
+    - final Scanner scan
     +void displayMsg(String msg);
     +void displayList(List<String> list);
-    +void displayMedia(List<Media> mediaList, int start);
+    +void displayMedia((Map<String, Media> mediaList, int start);
     +String promptText(String s);
     +String promptNumeric(String s, int maxValue);
-    +boolean promptBinary(String input, String accept, String reject);
+    +boolean promptBinary(String msg, String accept, String reject);
     +int promptChoice(List<String> inputList, String s);
+    +boolean equals(Object o);
+    +int hashCode();
     }
 }
 
-Film <|-- Episode
-Media <|-- Film
+
+Movie <|-- Episode
+Media <|-- Movie
 Media <|-- Serie
 Serie o-- Episode
 IMedia <|.. Media
