@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Sequence diagram mediaDialog
+
+participant "ChillFlix"
+participant "UI" as ui
+participant "Media" as media
+participant "User" as currentUser
+
+ChillFlix -> ChillFlix : actionList = new ArrayList
+ChillFlix -> ChillFlix : actionList.add ("Afspil")
+alt (currentUser.isFavorite(media)
+ChillFlix -> ChillFlix : actionList.add ("Fjern fra favoritter")
+else
+ChillFlix -> ChillFlix : actionList.add ("Tilføj til favoritter")
+end
+ChillFlix -> ChillFlix : actionList.add ("Tilbage")
+
+
+loop
+loop while choice < 3
+    ui -> ui : displayMsg("Du har valgt: " + media.getTitle())
+    ui -> ui : promptChoice(actions, "")
+    alt choice
+
+        ui -> media: play()
+        ui -> currentUser : addHistory(media)
+        ui -> IO : saveUserData()
+
+    else choice 2
+        ui -> currentUser : toggleFavorite(media)
+        ChillFlix -> ChillFlix : toggle ? ("Fjern fra : Tilføj til") + "favoritter")
+        ui -> IO : saveUserData()
+  end
+end
+@enduml
