@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title parseSerieData
+autonumber
+
+
+participant ChillFlix
+participant io
+participant Serie
+ChillFlix->io: ArrayList<String> serieList readData(seriePath)
+loop (String title: serieList)
+ChillFlix<-Serie: new Serie (createSerieFromString("title"))
+Serie->io:  mediaList.put(serie.getTitle(), serie);
+end
+@enduml
