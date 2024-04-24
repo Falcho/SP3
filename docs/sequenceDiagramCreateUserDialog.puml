@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title createUserDialog(String username)
+
+participant ChillFlix
+participant UI
+participant User
+
+autonumber
+
+alt if (username == null)
+    ChillFlix -> UI: usernameInput = prompText(msg)
+    UI --> ChillFlix: "Indtast brugernavn. Dette må ikke være tomt"
+
+    alt if (usernameInput.equalsIgnoreCase("") || checkIfUserExists(usernameInput, "Brugernavnet er enten taget, eller tomt - prøv igen."))
+        ChillFlix -> ChillFlix: createUserDialog
+    end
+    else else (usernameInput = username)
+    end
+
+    ChillFlix -> UI: String passwordInput = prompText(msg)
+    UI --> ChillFlix: "Indtast kodeord"
+    ChillFlix -> UI: String repeatPasswordInput = ui.promptText(msg)
+    UI --> ChillFlix: "Gentag kodeord"
+    alt if (!passwordInput.equals(repeatPasswordInput))
+        ChillFlix -> UI: displayMsg(msg)
+        UI --> ChillFlix: "Kodeordene skal være ens"
+        ChillFlix -> ChillFlix: createUserDialog(usernameInput)
+    else else
+    ChillFlix -> User: new(usernameInput, passwordInput)
+    ChillFlix -> ChillFlix: userList.put(usernameInput, user)
+    ChillFlix -> ChillFlix: saveUserData()
+    ChillFlix -> UI: displayMsg(msg)
+    UI --> ChillFlix: "Bruger oprettet"
+    end
+@enduml
