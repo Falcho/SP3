@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant ChillFlix
+participant UI
+participant IO
+participant User
+
+loop
+ChillFlix -> UI: promptText("Indtast brugernavn")
+ChillFlix -> UI: promptText("Indtast kodeord")
+loop
+ChillFlix -> IO: checkIfUserExists("username", "userPassword")
+IO -> User: checkPassword("password")
+User --> ChillFlix: true/false
+end
+ChillFlix <-- UI: displayMsg("brugernavn/kodeord kombination eksisterer ikke")
+IO -> User: currentUser = userList.get(username)
+IO <-- User: currentUser
+end
+ChillFlix <-- IO: return true
+
+
+@enduml

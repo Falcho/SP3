@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title startDialog();
+
+autonumber
+
+Main -> ChillFlix: new (chillFlix)
+ChillFlix -> IO: new()
+ChillFlix -> UI: new()
+
+loop while (!loggedIn)
+ChillFlix -> UI: choice = ui.promptChoice(actions, String s);
+alt case 1: Log ind
+ChillFlix -> UI: displayMsg(msg)
+UI --> ChillFlix: "Log Ind"
+ChillFlix -> ChillFlix: loggedIn = loginDialog();
+end
+alt case 2: Opret bruger
+ChillFlix -> UI: displayMsg(msg);
+UI --> ChillFlix: "Opret Bruger"
+ChillFlix -> ChillFlix: createUserDialog(null)
+end
+alt case 3: Luk
+ChillFlix -> UI: displayMsg(msg)
+UI --> ChillFlix: "Luk"
+ChillFlix -> ChillFlix: exit(0)
+end
+alt case 4: ???
+ChillFlix -> UI
+end
+alt if (loggedIn)
+ChillFlix -> ChillFlix: mainDialog()
+end
+end
+@enduml
