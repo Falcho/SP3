@@ -20,7 +20,7 @@ Class ChillFlix{
 +void saverUserData();
 +void startsDialog();
 +void mainDialog();
-+boolean loginDialog
++boolean loginDialog();
 +boolean createUserDialog(String username);
 +void selectGenreDialog();
 +void selectMovieDialog();
@@ -43,22 +43,22 @@ Class User{
 -String userPassword
 -Map<String, Media> favorites
 -Map<String, Media> history
-+User(String name, String password);
-+boolean checkPassword(String pwd);
-+void resetPassword();
-+void changePassword();
-+void addFavorite(Media media);
-+void removeFavorite(Media media);
-+void toggleFavorite(Media media);
-+boolean isFavorite(Media media);
-+void addHistory(Media media);
-+void resetHistory();
-+Map<String, Media> getFavorites();
++User(String name, String password)
++boolean checkPassword(String pwd)
++void resetPassword()
++void changePassword()
++void addFavorite(Media media)
++void removeFavorite(Media media)
++void toggleFavorite(Media media)
++boolean isFavorite(Media media)
++void addHistory(Media media)
++void resetHistory()
++Map<String, Media> getFavorites()
 +Map<String, Media> getHistory()
 +String getPassword()
 +boolean equals()
 +int hashCode()
-+String toString
++String toString()
 }
 
 Interface IMedia{
@@ -90,8 +90,8 @@ abstract Class Media{
 +void pause();
 +void restart();
 +void skipIntro()
-+void playPrevious
-+void playNext
++void playPrevious()
++void playNext()
 }
 
 Class Movie {
@@ -104,13 +104,14 @@ Class Serie{
 -Map<String,Map<String,Media>> seasonMap
 +Serie(String title, int releaseYear, String genre, float rating);
 +Map<String, Map<String, Media>> getSeasonMap();
-+void playPrevious();
-+ void playNext();
+
 }
 
 
 Class Episode{
 +Episode(String title, int releaseYear, String genre, float rating, int duration);
++void playPrevious();
++void playNext();
 }
 package util {
     Class FileIO{
@@ -140,11 +141,11 @@ Media <|-- Serie
 Serie o-- Episode
 IMedia <|.. Media
 ChillFlix *- User
-ChillFlix *-- IMedia
+ChillFlix *-- Media
 ChillFlix *-- FileIO
 ChillFlix *-- TextUI
 Main -- ChillFlix
-User o- IMedia
+User o- Media
 
 @enduml
 
