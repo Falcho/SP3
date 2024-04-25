@@ -7,8 +7,8 @@ participant ChillFlix
 participant UI
 participant Media
 
-loop (!mediaMap.isEmpty())
-ChillFlix -> ChillFlix : titleList = ArrayList(mediaMap.keySet())
+alt (!mediaMap.isEmpty())
+ChillFlix -> ChillFlix : titleList = new ArrayList(mediaMap.keySet())
 ChillFlix -> UI: promptChoice(titleList,"Vælg fra listen")
 UI --> ChillFlix: choice
 
