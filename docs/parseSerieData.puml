@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title parseSerieData
+autonumber
+
+ChillFlix->FileIO:readData
+FileIO->FileIO:saveData
+FileIO-->ChillFlix:createSerieFromString;
+ChillFlix->ChillFlix:
+ChillFlix->Serie:Serie serie = createSerieFromString(title);
+Serie->Media
+Media-->Serie:mediaList.put(serie.getTitle(), serie)
+Serie-->Chillflix
+ChillFlix->Episode
+Episode->Movie
+Movie->Media
+Media-->Movie
+Movie->Episode
+Episode->ChillFlix
+ChillFlix->ChillFlix: addGenre
+
+@enduml
