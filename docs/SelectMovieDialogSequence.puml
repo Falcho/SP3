@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title selectMovieDialog(Map<String,Media>mediaMap)
+autonumber
+
+participant ChillFlix
+participant UI
+participant Media
+
+loop (!mediaMap.isEmpty())
+ChillFlix -> UI: promptChoice(titleList,"Vælg fra listen")
+UI --> ChillFlix: choice
+
+
+ChillFlix -> Media: mediaMap.get(titleList.get(choice - 1))
+Media --> ChillFlix: chosenMedia
+alt Chosen media is a Serie
+    ChillFlix -> ChillFlix: serieDialog(chosenMedia)
+
+else Chosen media is not a Serie
+    ChillFlix -> ChillFlix: mediaDialog(chosenMedia)
+end
+end
+
+@enduml

@@ -39,6 +39,7 @@ public class ChillFlix {
             return false;
         }
     }
+
     private void saveUserData() {
         io.saveData("username\tpassword\t[favorites]\t[history]", new ArrayList<>(userList.values()), userPath);
     }
@@ -55,7 +56,7 @@ public class ChillFlix {
             switch (choice) {
                 case 1:
                     ui.displayMsg("Log ind");
-                    loggedIn=loginDialog();
+                    loggedIn = loginDialog();
                     break;
                 case 2:
                     ui.displayMsg("Opret Bruger");
@@ -99,7 +100,7 @@ public class ChillFlix {
                     }
                     break;
                 case 3:
-                    if(currentUser.getHistory().isEmpty()) {
+                    if (currentUser.getHistory().isEmpty()) {
                         ui.displayMsg("-----------------");
                         ui.displayMsg("Historik er tom");
                         ui.displayMsg("-----------------");
@@ -163,8 +164,12 @@ public class ChillFlix {
     public void selectGenreDialog() {
         List<String> genreList = new ArrayList<>(genreMap.keySet());
         if (!genreList.isEmpty()) {
+            genreList.add("Tilbage");
+            int listSize = genreList.size();
             int choice = ui.promptChoice(genreList, "Vælg en genre fra listen");
-            selectMovieDialog(genreMap.get(genreList.get(choice - 1)));
+            if (choice < listSize) {
+                selectMovieDialog(genreMap.get(genreList.get(choice - 1)));
+            }
         } else {
             ui.displayMsg("Der er ingen genredata i systemet.");
         }
@@ -174,23 +179,22 @@ public class ChillFlix {
     public void selectMovieDialog(Map<String, Media> mediaMap) {
         if (!mediaMap.isEmpty()) {
             List<String> titleList = new ArrayList<>(mediaMap.keySet());
-            //Få antal elementer i listen
-            //TODO Tilføj "Tilbage" til listen
+            titleList.add("Tilbage");
+            int listSize = titleList.size();
             int choice = ui.promptChoice(titleList, "Vælg fra listen");
-            //Hvis du har valgt den sidste mulighed i listen (en mulighed som er større end antal elementer i listen
-            //Gør ingenting
-            //Ellers :
-            Media chosenMedia = mediaMap.get(titleList.get(choice - 1));
-            if (chosenMedia instanceof Serie) {
-                this.serieDialog(chosenMedia);
-            } else {
-                this.mediaDialog(chosenMedia);
+            if (choice < listSize) {
+                Media chosenMedia = mediaMap.get(titleList.get(choice - 1));
+                if (chosenMedia instanceof Serie) {
+                    this.serieDialog(chosenMedia);
+                } else {
+                    this.mediaDialog(chosenMedia);
+                }
             }
         }
     }
 
     private void serieDialog(Media media) {
-        List<String> seasonList = new ArrayList<>(((Serie)media).getSeasonMap().keySet());
+        List<String> seasonList = new ArrayList<>(((Serie) media).getSeasonMap().keySet());
         ArrayList<String> actions = new ArrayList<>();
         actions.add("Afspil Serie fra starten");
         if (currentUser.isFavorite(media)) {
@@ -203,7 +207,7 @@ public class ChillFlix {
 
 
         int choice = 0;
-        while (choice < actions.size()-1) {
+        while (choice < actions.size() - 1) {
             ui.displayMsg("Du har valgt: " + media.getTitle());
             choice = ui.promptChoice(actions, "");
             switch (choice) {
@@ -219,7 +223,7 @@ public class ChillFlix {
                     break;
                 default:
                     //selectMovieDialog(((Serie) media).getSeasonMap().getOrDefault(seasonList.get(choice-2), "Sæson 1"));
-                    if (choice-3<seasonList.size()) {
+                    if (choice - 3 < seasonList.size()) {
                         selectMovieDialog(((Serie) media).getSeasonMap().get(seasonList.get(choice - 3)));
                     }
             }
@@ -277,8 +281,8 @@ public class ChillFlix {
             String[] userDataArray = userData.split("\t");
             String userName = userDataArray[0].trim();
             String userPassword = userDataArray[1].trim();
-            String favorites = userDataArray[2].replace("[","").replace("]","").trim();
-            String history = userDataArray[3].replace("[","").replace("]","").trim();
+            String favorites = userDataArray[2].replace("[", "").replace("]", "").trim();
+            String history = userDataArray[3].replace("[", "").replace("]", "").trim();
             User user = new User(userName, userPassword);
             if (favorites.contains(";")) {
                 for (String movieTitle : favorites.split(";")) {
@@ -344,12 +348,12 @@ public class ChillFlix {
             int seasonNumber = Integer.parseInt(seasonEpisode.split("-")[0].trim());
             int episodesInSeason = Integer.parseInt(seasonEpisode.split("-")[1].trim());
             StringBuilder seasonTitle = new StringBuilder(title + " sæson ");
-            seasonTitle.append((numberOfSeasons>10 && seasonNumber<10) ? "0" : "").append(seasonNumber);
+            seasonTitle.append((numberOfSeasons > 10 && seasonNumber < 10) ? "0" : "").append(seasonNumber);
             serie.getSeasonMap().put(seasonTitle.toString(), new TreeMap<>());
             for (int i = 1; i <= episodesInSeason; i++) {
                 StringBuilder episodeTitle = new StringBuilder(title);
-                episodeTitle.append(" S").append(seasonNumber<10 ? "0" : "").append(seasonNumber);
-                episodeTitle.append("E").append(i<10 ? "0" : "").append(i);
+                episodeTitle.append(" S").append(seasonNumber < 10 ? "0" : "").append(seasonNumber);
+                episodeTitle.append("E").append(i < 10 ? "0" : "").append(i);
                 Episode ep = new Episode(episodeTitle.toString(), startYear, genre, rating, 0);
                 serie.getSeasonMap().get(seasonTitle.toString()).put(ep.getTitle(), ep);
                 mediaList.put(ep.getTitle(), ep);
