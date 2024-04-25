@@ -5,22 +5,22 @@ autonumber
 
 participant ChillFlix
 participant UI
-participant IO
 participant User
 
 loop
 ChillFlix -> UI: promptText("Indtast brugernavn")
 ChillFlix -> UI: promptText("Indtast kodeord")
 loop
-ChillFlix -> IO: checkIfUserExists("username", "userPassword")
-IO -> User: checkPassword("password")
+ChillFlix -> User: checkIfUserExists("username", "userPassword")
 User --> ChillFlix: true/false
-end
+ChillFlix -> User: checkPassword("password")
+User --> ChillFlix: true/false
 ChillFlix <-- UI: displayMsg("brugernavn/kodeord kombination eksisterer ikke")
-IO -> User: currentUser = userList.get(username)
-IO <-- User: currentUser
 end
-ChillFlix <-- IO: return true
+ChillFlix -> User: currentUser = userList.get(username)
+ChillFlix <-- User: currentUser
+end
+ChillFlix --> ChillFlix: return true
 
 
 @enduml
