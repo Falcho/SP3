@@ -8,10 +8,11 @@ participant UI
 participant Media
 
 loop (!mediaMap.isEmpty())
+ChillFlix -> ChillFlix : titleList = ArrayList(mediaMap.keySet())
 ChillFlix -> UI: promptChoice(titleList,"Vælg fra listen")
 UI --> ChillFlix: choice
 
-
+alt choice < titleList.size()
 ChillFlix -> Media: mediaMap.get(titleList.get(choice - 1))
 Media --> ChillFlix: chosenMedia
 alt Chosen media is a Serie
@@ -19,6 +20,7 @@ alt Chosen media is a Serie
 
 else Chosen media is not a Serie
     ChillFlix -> ChillFlix: mediaDialog(chosenMedia)
+end
 end
 end
 
