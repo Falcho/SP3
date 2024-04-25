@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Skitse over programmets flow
+
+Main -> ChillFlix
+ChillFlix -> Movie : load film data
+ChillFlix -> Serie : load serie data
+ChillFlix -> User : load bruger data
+
+alt opret bruger eller login
+ChillFlix -> User : login
+else
+ChillFlix -> User : opret bruger
+end
+
+alt hovedmenu handlinger
+ChillFlix -> ChillFlix : Vis kategori
+else
+ChillFlix -> ChillFlix : Vis favoritter
+else
+ChillFlix -> ChillFlix : Vis historik
+else
+ChillFlix -> ChillFlix : Søg
+else
+ChillFlix -> ChillFlix : Settings menu
+end
+
+
+
+@enduml
