@@ -16,12 +16,16 @@ end
 
 alt hovedmenu handlinger
 ChillFlix -> ChillFlix : Vis kategori
+ChillFlix -> UI : Vælg et medie fra kategorilisten
 else
 ChillFlix -> ChillFlix : Vis favoritter
+ChillFlix -> UI : Vælg et medie fra listen
 else
 ChillFlix -> ChillFlix : Vis historik
+ChillFlix -> UI : Vælg et medie fra listen
 else
 ChillFlix -> ChillFlix : Søg
+ChillFlix -> UI : Vælg et medie fra resultatlisten
 else
 ChillFlix -> ChillFlix : Settings menu
 end
