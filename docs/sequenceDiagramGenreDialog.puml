@@ -1,17 +1,23 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 title genreDialog
-autonumber
+
 
 participant ChillFlix
-participant ui
+participant TextUI as ui
 participant io
-ChillFlix -> io: new ArrayList genreList
+ChillFlix -> ChillFlix: genreList = new ArrayList(genreMap.keySet())
 loop
 alt !genreList.isEmpty
-ui --> ui : promptChoice("Vælg en genre fra listen")
-ChillFlix->io: selectMovieDialog (genreMap.get(genreList.get(choice - 1)
+ChillFlix -> ui : promptChoice("Vælg en genre fra listen")
+ui -> ui : displayList()
+ui -> ui : promptNumeric()
+ui --> ChillFlix
+alt choice<listSize
+ChillFlix -> ChillFlix : selectMovieDialog (genreMap.get(chosenGenre))
+end
 else
-ui -> ui : displayMsg("Der er ingen genredata i systemet")
+ChillFlix -> ui : displayMsg("Der er ingen genredata i systemet")
+ui --> ChillFlix
 end
 @enduml
