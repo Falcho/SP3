@@ -179,11 +179,10 @@ public class ChillFlix {
     public void selectMovieDialog(Map<String, Media> mediaMap) {
         if (!mediaMap.isEmpty()) {
             List<String> titleList = new ArrayList<>(mediaMap.keySet());
-            int listSize = titleList.size();
             titleList.add("Tilbage");
+            int listSize = titleList.size();
             int choice = ui.promptChoice(titleList, "Vælg fra listen");
-            if (choice == listSize + 1) {
-            } else {
+            if (choice < listSize) {
                 Media chosenMedia = mediaMap.get(titleList.get(choice - 1));
                 if (chosenMedia instanceof Serie) {
                     this.serieDialog(chosenMedia);
