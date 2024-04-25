@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+ChillFlix -> user: isFavorit
+alt [isFavorite]
+    user --> ChillFlix: "Ja, er favorit"
+    ChillFlix -> TextUI: "Fjern fra favoritter"
+else
+    user --> ChillFlix: "Nej, ikke favorit"
+    ChillFlix -> TextUI: "Tilføj til favoritter"
+end
+TextUI --> ChillFlix
+
+ChillFlix -> TextUI: displayMsg "Vælg en handling"
+TextUI --> ChillFlix
+
+loop While choice < 3
+ChillFlix -> TextUI: promptChoice
+TextUI --> ChillFlix: choice
+    TextUI -> TextUI: displayMsg "Du har valgt: [media.getTitle()]"
+    TextUI -> TextUI: promptNumeric actions
+    alt [1==choice]
+        ChillFlix -> Media: play
+        Media --> ChillFlix
+        ChillFlix -> user: addHistory
+        user --> ChillFlix
+        ChillFlix -> ChillFlix: saveUserData
+    else [2==choice]
+        user -> user: toggleFavorit
+        user -> TextUI: displayMsg (toggle ? "Fjern fra" : "Tilføj til") + " favoritter"
+        TextUI --> user
+        ChillFlix -> ChillFlix: saveUserData
+    end
+    TextUI -> TextUI: promptNumeric
+    TextUI --> ChillFlix: choice
+end
+
+ChillFlix -> FileIO: saveData
+FileIO --> ChillFlix
+ChillFlix -> user: toggleFavorit
+user -> user: isFavorit
+user -> TextUI: displayMsg
+TextUI --> user
+alt [isFavorite]
+    user -> user: removeFavorit
+else
+    user -> user: addFavorit
+end
+user -> TextUI: displayMsg
+TextUI --> user
+user --> ChillFlix
+ChillFlix -> ChillFlix: saveUserData
+ChillFlix -> FileIO: saveData
+FileIO --> ChillFlix
+
+
+@enduml
